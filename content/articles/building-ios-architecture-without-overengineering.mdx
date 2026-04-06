@@ -1,0 +1,38 @@
+---
+title: Building iOS Architecture Without Overengineering
+excerpt: A practical way to make architecture decisions that improve maintainability without slowing down product delivery.
+publishedAt: 2026-03-12
+tags:
+  - iOS
+  - Architecture
+  - Engineering
+draft: false
+---
+
+Good architecture is rarely about choosing the most sophisticated pattern in the room. Most of the time, it is about making the codebase easier to change when the product evolves.
+
+## Start from product pressure
+
+Before splitting a feature into more layers, I like to ask a simple question: what kind of change is most likely to happen next?
+
+If a screen changes often, the structure should make UI updates safe. If a feature depends on multiple APIs, the structure should make side effects visible and testable. If a team is growing, the structure should make ownership clearer.
+
+Architecture decisions become lighter when they are tied to product pressure instead of abstract purity.
+
+## A useful default
+
+For many production apps, a good default is:
+
+- keep views focused on presentation
+- move orchestration into dedicated feature logic
+- isolate networking and persistence behind small interfaces
+- make state transitions explicit enough to test
+
+That gives enough shape for scaling without forcing every feature into unnecessary ceremony.
+
+## When to stop abstracting
+
+Overengineering often starts when abstractions arrive before repeated pain. If only one screen uses a workflow, I prefer to keep the solution local until the second or third real reuse case appears.
+
+That approach keeps momentum high and usually leads to better abstractions because they are informed by real variation, not imagined future needs.
+
