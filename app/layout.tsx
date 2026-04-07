@@ -23,10 +23,11 @@ html {
   font-family: ${GeistSans.style.fontFamily};
   --font-sans: ${GeistSans.variable};
   --font-mono: ${GeistMono.variable};
+  --font-display: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", "URW Palladio L", Georgia, serif;
 }
         `}</style>
       </head>
-      <body className="antialiased">{children}</body>
+      <body className="grain antialiased">{children}</body>
     </html>
   )
 }

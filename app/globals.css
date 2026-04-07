@@ -1,6 +1,18 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+:root {
+  --paper-0: #fffaf2;
+  --paper-1: #f6eee1;
+  --paper-2: #e9decb;
+  --ink-1: #231a12;
+  --ink-2: #5f5346;
+  --line-soft: rgba(113, 92, 71, 0.22);
+  --line-strong: rgba(68, 46, 29, 0.32);
+  --olive: #31443a;
+  --amber: #b77b37;
+}
+
 @layer base {
   * {
     @apply border-stone-200;
@@ -12,6 +24,11 @@
 
   body {
     @apply bg-[#f6f1e8] text-stone-950;
+    background:
+      radial-gradient(circle at top left, rgba(255, 250, 242, 0.96), transparent 32%),
+      radial-gradient(circle at top right, rgba(183, 123, 55, 0.08), transparent 28%),
+      linear-gradient(180deg, #f9f3e8 0%, #f2eadf 42%, #e9dfd0 100%);
+    color: var(--ink-1);
   }
 
   a {
@@ -21,11 +38,13 @@
 
 @layer components {
   .section-label {
-    @apply text-xs uppercase tracking-[0.28em] text-stone-500;
+    @apply text-xs uppercase tracking-[0.32em] text-stone-500;
   }
 
   .section-title {
-    @apply mt-4 max-w-3xl text-3xl font-semibold tracking-tight text-stone-950 md:text-5xl;
+    @apply mt-4 max-w-3xl text-3xl tracking-[-0.03em] text-stone-950 md:text-5xl;
+    font-family: var(--font-display);
+    line-height: 0.94;
   }
 
   .section-copy {
@@ -34,6 +53,148 @@
 
   .prose-shell > :first-child {
     @apply mt-0;
+  }
+
+  .display-eyebrow {
+    @apply inline-flex items-center gap-3 rounded-full border px-4 py-2 text-[11px] uppercase tracking-[0.32em];
+    border-color: var(--line-strong);
+    background: rgba(255, 250, 242, 0.75);
+    color: var(--ink-2);
+    backdrop-filter: blur(14px);
+  }
+
+  .display-title {
+    font-family: var(--font-display);
+    font-size: clamp(3.6rem, 8vw, 6.8rem);
+    line-height: 0.88;
+    letter-spacing: -0.055em;
+    color: #3a2c20;
+    text-wrap: balance;
+    text-shadow: 0 1px 0 rgba(255, 251, 245, 0.42);
+  }
+
+  .editorial-card {
+    border: 1px solid var(--line-soft);
+    background: rgba(255, 251, 245, 0.78);
+    box-shadow: 0 18px 52px rgba(52, 37, 23, 0.08);
+    backdrop-filter: blur(12px);
+  }
+
+  .paper-panel {
+    border: 1px solid rgba(103, 82, 63, 0.18);
+    background:
+      linear-gradient(180deg, rgba(255, 252, 247, 0.94), rgba(247, 239, 228, 0.92)),
+      radial-gradient(circle at top, rgba(183, 123, 55, 0.06), transparent 36%);
+    box-shadow: 0 22px 60px rgba(57, 40, 24, 0.1);
+  }
+
+  .paper-cut {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .paper-cut::after {
+    content: "";
+    position: absolute;
+    inset: auto 8% 0 auto;
+    width: 11rem;
+    height: 11rem;
+    border-radius: 999px;
+    background: radial-gradient(circle, rgba(183, 123, 55, 0.14), transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-reveal {
+    opacity: 0;
+    animation: rise-in 0.9s ease forwards;
+  }
+
+  .hero-reveal-delay-1 {
+    animation-delay: 0.08s;
+  }
+
+  .hero-reveal-delay-2 {
+    animation-delay: 0.16s;
+  }
+
+  .hero-reveal-delay-3 {
+    animation-delay: 0.24s;
+  }
+
+  .hero-reveal-delay-4 {
+    animation-delay: 0.32s;
+  }
+
+  .editorial-rule {
+    height: 1px;
+    background: linear-gradient(90deg, rgba(66, 46, 29, 0), rgba(66, 46, 29, 0.28), rgba(66, 46, 29, 0));
+  }
+
+  .section-fade {
+    opacity: 0;
+    animation: rise-in 0.85s ease forwards;
+  }
+
+  .section-fade-delay-1 {
+    animation-delay: 0.12s;
+  }
+
+  .section-fade-delay-2 {
+    animation-delay: 0.2s;
+  }
+
+  .section-fade-delay-3 {
+    animation-delay: 0.28s;
+  }
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.grain {
+  position: relative;
+}
+
+.grain::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.08;
+  background-image:
+    radial-gradient(rgba(45, 31, 20, 0.08) 0.6px, transparent 0.6px),
+    radial-gradient(rgba(255, 255, 255, 0.26) 0.6px, transparent 0.6px);
+  background-position: 0 0, 14px 14px;
+  background-size: 18px 18px;
+  mix-blend-mode: multiply;
+  z-index: 999;
+}
+
+@media (max-width: 767px) {
+  .display-title {
+    font-size: clamp(3.4rem, 16vw, 5rem);
+    line-height: 0.92;
+  }
+
+  .section-title {
+    line-height: 0.98;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-reveal,
+  .section-fade {
+    opacity: 1;
+    animation: none;
   }
 }
 

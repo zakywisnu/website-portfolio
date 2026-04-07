@@ -2,8 +2,20 @@ import type { MDXComponents } from "mdx/types"
 import Link from "next/link"
 
 export const mdxComponents: MDXComponents = {
-  h2: (props) => <h2 className="mt-12 text-2xl font-semibold tracking-tight text-stone-950" {...props} />,
-  h3: (props) => <h3 className="mt-10 text-xl font-semibold tracking-tight text-stone-950" {...props} />,
+  h2: (props) => (
+    <h2
+      className="mt-14 text-[2rem] tracking-[-0.03em] text-stone-950"
+      style={{ fontFamily: "var(--font-display)", lineHeight: "0.98" }}
+      {...props}
+    />
+  ),
+  h3: (props) => (
+    <h3
+      className="mt-10 text-[1.45rem] tracking-[-0.02em] text-stone-950"
+      style={{ fontFamily: "var(--font-display)", lineHeight: "1" }}
+      {...props}
+    />
+  ),
   p: (props) => <p className="mt-6 text-base leading-8 text-stone-800" {...props} />,
   ul: (props) => <ul className="mt-6 list-disc space-y-2 pl-6 text-stone-800" {...props} />,
   ol: (props) => <ol className="mt-6 list-decimal space-y-2 pl-6 text-stone-800" {...props} />,

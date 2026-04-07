@@ -10,17 +10,20 @@ type ArticleCardProps = {
 export function ArticleCard({ article, featured = false }: ArticleCardProps) {
   return (
     <article
-      className={`rounded-[2rem] border border-[#d7ccbc] bg-white ring-1 ring-[#e6ddd0] shadow-[0_12px_28px_rgba(76,62,44,0.06)] transition duration-200 hover:-translate-y-1 hover:border-[#b7a791] hover:ring-[#d8cdbf] hover:shadow-[0_22px_56px_rgba(76,62,44,0.14)] ${
-        featured ? "p-8 md:p-10" : "p-6"
+      className={`paper-cut rounded-[2rem] border border-[rgba(117,95,71,0.2)] bg-[rgba(255,251,245,0.82)] shadow-[0_20px_48px_rgba(76,62,44,0.08)] transition duration-300 hover:-translate-y-1 hover:border-[rgba(117,95,71,0.34)] hover:shadow-[0_28px_70px_rgba(76,62,44,0.14)] ${
+        featured ? "p-8 md:p-10" : "p-6 md:p-7"
       }`}
     >
-      <div className="flex flex-wrap items-center gap-3 text-sm text-stone-600">
+      <div className="flex flex-wrap items-center gap-3 text-sm uppercase tracking-[0.18em] text-stone-500">
         <span>{formatArticleDate(article.publishedAt)}</span>
         <span>&bull;</span>
         <span>{article.readingTime}</span>
       </div>
 
-      <h2 className={`mt-4 font-semibold tracking-tight text-stone-950 ${featured ? "text-3xl" : "text-2xl"}`}>
+      <h2
+        className={`mt-4 tracking-[-0.03em] text-stone-950 ${featured ? "text-3xl md:text-4xl" : "text-2xl md:text-[2rem]"}`}
+        style={{ fontFamily: "var(--font-display)", lineHeight: "0.98" }}
+      >
         <Link className="transition hover:text-[#31443a]" href={`/articles/${article.slug}`}>
           {article.title}
         </Link>
@@ -28,9 +31,14 @@ export function ArticleCard({ article, featured = false }: ArticleCardProps) {
 
       <p className="mt-4 max-w-2xl text-base leading-7 text-stone-700">{article.excerpt}</p>
 
+      <div className="editorial-rule mt-6" />
+
       <div className="mt-6 flex flex-wrap gap-2">
         {article.tags.map((tag) => (
-          <span key={tag} className="rounded-full bg-[#eeeadf] px-3 py-1 text-xs font-medium uppercase tracking-[0.16em] text-stone-700">
+          <span
+            key={tag}
+            className="rounded-full border border-[rgba(117,95,71,0.18)] bg-[rgba(238,234,223,0.72)] px-3 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-stone-700"
+          >
             {tag}
           </span>
         ))}

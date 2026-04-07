@@ -54,23 +54,31 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
   const relatedArticles = getRelatedArticles(slug, 2)
 
   return (
-    <div className="min-h-screen bg-[radial-gradient(circle_at_top,#fffdf9_0%,#f6f1e8_45%,#ece3d6_100%)] text-stone-900">
+    <div className="flex min-h-screen flex-col text-stone-900">
       <SiteHeader />
 
-      <main className="mx-auto w-full max-w-6xl px-6 py-18">
-        <div className="max-w-3xl">
-          <Link className="text-sm text-stone-600 transition hover:text-[#31443a]" href="/articles">
+      <main className="mx-auto w-full max-w-6xl flex-1 px-5 py-18 sm:px-6">
+        <div className="max-w-4xl">
+          <Link className="text-sm uppercase tracking-[0.18em] text-stone-600 transition hover:text-[#31443a]" href="/articles">
             Back to articles
           </Link>
-          <h1 className="mt-6 text-4xl font-semibold tracking-tight text-stone-950 md:text-6xl">{compiled.frontmatter.title}</h1>
-          <div className="mt-6 flex flex-wrap items-center gap-3 text-sm text-stone-500">
+          <h1
+            className="mt-6 max-w-4xl text-5xl tracking-[-0.045em] text-stone-950 md:text-7xl"
+            style={{ fontFamily: "var(--font-display)", lineHeight: "0.92" }}
+          >
+            {compiled.frontmatter.title}
+          </h1>
+          <div className="mt-6 flex flex-wrap items-center gap-3 text-sm uppercase tracking-[0.18em] text-stone-500">
             <span>{formatArticleDate(compiled.frontmatter.publishedAt)}</span>
             <span>&bull;</span>
             <span>{compiled.readingTime}</span>
           </div>
           <div className="mt-6 flex flex-wrap gap-2">
             {compiled.frontmatter.tags.map((tag) => (
-              <span key={tag} className="rounded-full bg-stone-100 px-3 py-1 text-xs font-medium uppercase tracking-[0.16em] text-stone-600">
+              <span
+                key={tag}
+                className="rounded-full border border-[rgba(117,95,71,0.18)] bg-[rgba(255,250,242,0.72)] px-3 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-stone-700"
+              >
                 {tag}
               </span>
             ))}
@@ -79,12 +87,12 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
         </div>
 
         <div className="mt-14 grid gap-12 lg:grid-cols-[minmax(0,1fr)_18rem]">
-            <article className="rounded-[2rem] border border-stone-300 bg-[#fffdf9] px-6 py-10 shadow-[0_12px_34px_rgba(28,25,23,0.05)] md:px-10">
+          <article className="paper-panel rounded-[2.2rem] px-6 py-10 md:px-10">
             <div className="prose-shell">{compiled.content}</div>
           </article>
 
           <aside className="space-y-4">
-            <div className="rounded-[2rem] border border-stone-300 bg-[#fffdf9] p-6 shadow-[0_10px_30px_rgba(28,25,23,0.04)]">
+            <div className="editorial-card rounded-[2rem] p-6">
               <p className="text-xs uppercase tracking-[0.28em] text-stone-500">Workflow</p>
               <p className="mt-4 text-sm leading-7 text-stone-700">
                 Articles live in <code>content/articles</code> as local MDX files with frontmatter for title, excerpt, date, tags, and draft state.
@@ -96,7 +104,12 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
         {relatedArticles.length > 0 ? (
           <section className="mt-16">
             <div className="flex items-center justify-between">
-              <h2 className="text-2xl font-semibold tracking-tight text-stone-950">More writing</h2>
+              <h2
+                className="text-[2rem] tracking-[-0.03em] text-stone-950"
+                style={{ fontFamily: "var(--font-display)", lineHeight: "0.98" }}
+              >
+                More writing
+              </h2>
               <Link className="text-sm font-medium text-stone-600 transition hover:text-[#31443a]" href="/articles">
                 View all
               </Link>
