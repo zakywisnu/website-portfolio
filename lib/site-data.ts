@@ -29,7 +29,6 @@ export const profile = {
   email: "azakyw@gmail.com",
   github: "https://github.com/zakywisnu",
   linkedin: "https://www.linkedin.com/in/ahmadzakyw/",
-  resumeHref: "/Resume_Ahmad Zaky Wisnumurti.pdf",
   tagline: "Building secure, scalable iOS products with clean architecture and thoughtful user experience.",
   intro:
     "I design and ship mobile products that balance engineering rigor with polished product execution. My work spans architecture modernisation, performance, testability, and the day-to-day collaboration needed to keep a product moving.",
@@ -142,4 +141,3 @@ export const education: EducationItem[] = [
 export const skills = ["Swift", "SwiftUI", "UIKit", "Async/Await", "Combine", "SPM", "Core Data", "Unit Testing"]
 
 export const languages = ["Indonesian", "English"]
-

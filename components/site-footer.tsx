@@ -21,9 +21,6 @@ export function SiteFooter() {
           <Link className="transition hover:text-[#31443a]" href={profile.github} target="_blank">
             GitHub
           </Link>
-          <Link className="transition hover:text-[#31443a]" href={profile.resumeHref} target="_blank">
-            Resume
-          </Link>
         </div>
       </div>
     </footer>
