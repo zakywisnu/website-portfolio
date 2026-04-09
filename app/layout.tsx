@@ -1,12 +1,13 @@
-import type { Metadata } from 'next'
-import { GeistSans } from 'geist/font/sans'
-import { GeistMono } from 'geist/font/mono'
-import './globals.css'
+import type { Metadata } from "next"
+import { GeistMono } from "geist/font/mono"
+import { GeistSans } from "geist/font/sans"
+
+import "./globals.css"
 
 export const metadata: Metadata = {
-  title: 'Zaky | iOS Engineer',
-  description: 'Ahmad Zaky W | Software Engineer (iOS)',
-  generator: 'iOS Engineer',
+  title: "Ahmad Zaky Wisnumurti | iOS Engineer",
+  description: "Portfolio and writing from Ahmad Zaky Wisnumurti, an iOS engineer focused on scalable product work.",
+  generator: "Next.js",
 }
 
 export default function RootLayout({
@@ -22,10 +23,11 @@ html {
   font-family: ${GeistSans.style.fontFamily};
   --font-sans: ${GeistSans.variable};
   --font-mono: ${GeistMono.variable};
+  --font-display: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", "URW Palladio L", Georgia, serif;
 }
         `}</style>
       </head>
-      <body>{children}</body>
+      <body className="grain antialiased">{children}</body>
     </html>
   )
 }

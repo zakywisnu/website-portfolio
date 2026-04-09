@@ -1,504 +1,313 @@
-"use client"
+import Link from "next/link"
+import { ArrowRight, Mail, MapPin } from "lucide-react"
 
-import { useState, useEffect } from "react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import {
-  Mail,
-  Github,
-  Linkedin,
-  ExternalLink,
-  Download,
-  MapPin,
-  Calendar,
-  Award,
-  GraduationCap,
-  Zap,
-  Code,
-  Cpu,
-} from "lucide-react"
+import { ArticleCard } from "@/components/article-card"
+import { SiteFooter } from "@/components/site-footer"
+import { SiteHeader } from "@/components/site-header"
+import { getRecentArticles } from "@/lib/articles"
+import { education, languages, profile, projects, skills, strengths, workExperience } from "@/lib/site-data"
 
-export default function Portfolio() {
-  const [activeSection, setActiveSection] = useState("hero")
+const quickFacts = [
+  { label: "Focus", value: "iOS product engineering" },
+  { label: "Based in", value: profile.location },
+  { label: "Writing", value: "Architecture and production lessons" },
+]
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const sections = ["hero", "about", "experience", "education", "skills", "projects", "contact"]
-      const scrollPosition = window.scrollY + 100
-
-      for (const section of sections) {
-        const element = document.getElementById(section)
-        if (element) {
-          const { offsetTop, offsetHeight } = element
-          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
-            setActiveSection(section)
-            break
-          }
-        }
-      }
-    }
-
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
-
-  const scrollToSection = (sectionId: string) => {
-    document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth" })
-  }
-
-  const workExperience = [
-    {
-      company: "Aleph-Labs",
-      position: "iOS Engineer",
-      duration: "Oct 2023 – Present",
-      location: "Jakarta, Indonesia",
-      description:
-        "Aleph is a creative engineering company, strategically headquartered in Singapore and operates across the Asia Pacific.",
-      achievements: [
-        "Maintained iOS applications, improving user experience and app performance increased by 15% faster",
-        "Implemented robust app architectures, resulting in faster development cycles and enhanced code maintainability",
-        "Collaborated with other developers in code reviews and pair programming sessions",
-        "Implemented push notifications to enhance user interaction and improve app retention",
-      ],
-      current: true,
-    },
-    {
-      company: "Privy",
-      position: "iOS Engineer",
-      duration: "Dec 2022 - Aug 2023",
-      location: "Yogyakarta, Indonesia",
-      description:
-        "Privy is the fastest-growing Series C-funded Digital Signature and Trusted Identity Provider in Indonesia.",
-      achievements: [
-        "Collaborated with UI/UX designers to create intuitive interfaces, resulting in a 4.8 App store rating",
-        "Reducing dependencies on third-party networking libraries and enhancing code maintainability by engineering a custom network layer using URLSession for core library",
-        "Initiated comprehensive unit testing for gamification features, resulting in 70% code coverage",
-        "Modularized feature modules, enhancing projects scalability and promoting code reusability",
-      ],
-      current: false,
-    },
-    {
-      company: "Ruangguru",
-      position: "Software Engineer (iOS)",
-      duration: "Oct 2021–Dec 2022",
-      location: "Jakarta, Indonesia",
-      description:
-        "Ruangguru is the largest and most comprehensive technology company in Indonesia that focuses on education-based services.",
-      achievements: [
-        "Revamp iOS architecture, implementing modularized features and reducing app load by 10%",
-        "Implemented Keychain for secure local data management, enhancing app's data protection",
-        "Revamping gamification and engagement features to new architectures, ensuring minimum differences behavior with the legacy",
-      ],
-      current: false,
-    },
-  ]
-
-  const projects = [
-    {
-      name: "Privy Digital Signature App",
-      description: "Developed a digital signature app using Swift and UIKit with modular MVVM architecture",
-      features: [
-        "Implemented modular architecture using MVVM, emphasizing commitment to best practice and enhanced code maintainability",
-        "Engineered a custom network layer using URLSession for core library",
-        "Implemented unit testing for gamification features",
-      ],
-      link: "https://apps.apple.com/app/privy",
-    },
-    {
-      name: "Ruangguru Learning App",
-      description: "Enhanced learning app with secure data management and improved architecture",
-      features: [
-        "Implemented Keychain for secure local data management ensuring security of local sensitive data",
-        "Implemented modular architecture using MVVM, migrating from MVC to ensure code scalability",
-        "Implemented unit testing for several features, ensuring minimum differences behavior between legacy and revamped apps",
-      ],
-      link: "https://apps.apple.com/app/ruangguru",
-    },
-  ]
-
-  const skills = ["Swift", "SwiftUI", "UIKit", "Async/Await", "Combine", "SPM", "CoreData", "Unit Test"]
-
-  const languages = ["Indonesian", "English"]
+export default function HomePage() {
+  const recentArticles = getRecentArticles(3)
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 text-white relative overflow-hidden">
-      {/* Animated background grid pattern */}
-      <div className="fixed inset-0 bg-grid-pattern opacity-10 animate-pulse-slow"></div>
-      <div className="fixed inset-0 bg-gradient-to-br from-blue-500/5 via-transparent to-cyan-500/5"></div>
+    <div className="flex min-h-screen flex-col text-stone-900">
+      <SiteHeader />
 
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-slate-900/20 backdrop-blur-xl border-b border-blue-500/20">
-        <div className="max-w-6xl mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            <div className="font-bold text-xl bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
-              AZW
-            </div>
-            <div className="hidden md:flex space-x-8">
-              {["About", "Experience", "Education", "Skills", "Projects", "Contact"].map((item) => (
-                <button
-                  key={item}
-                  onClick={() => scrollToSection(item.toLowerCase())}
-                  className={`text-sm font-medium transition-all duration-300 hover:text-blue-400 relative ${
-                    activeSection === item.toLowerCase()
-                      ? "text-blue-400 after:absolute after:bottom-[-4px] after:left-0 after:right-0 after:h-0.5 after:bg-gradient-to-r after:from-blue-400 after:to-cyan-400"
-                      : "text-slate-300"
-                  }`}
-                >
-                  {item}
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-      </nav>
+      <main className="flex-1">
+        <section className="relative overflow-hidden px-5 pb-18 pt-10 sm:px-6 md:pt-18">
+          <div className="pointer-events-none absolute inset-x-0 top-0 h-[42rem] bg-[radial-gradient(circle_at_18%_18%,rgba(183,123,55,0.2),transparent_22%),radial-gradient(circle_at_82%_12%,rgba(49,68,58,0.14),transparent_18%),linear-gradient(180deg,rgba(255,252,247,0.82),rgba(255,252,247,0.18)_55%,rgba(255,252,247,0))]" />
+          <div className="mx-auto grid w-full max-w-6xl gap-10 lg:grid-cols-[minmax(0,1.2fr)_22rem] lg:items-start">
+            <div className="relative">
+              <p className="display-eyebrow hero-reveal">
+                <span className="h-2 w-2 rounded-full bg-[var(--olive)]" />
+                iOS engineer portfolio
+              </p>
 
-      <section id="hero" className="pt-32 pb-20 px-6 relative">
-        <div className="max-w-6xl mx-auto text-center relative z-10">
-          <div className="animate-fade-in-up">
-            <div className="mb-8">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/20 mb-6">
-                <Zap className="w-4 h-4 text-blue-400" />
-                <span className="text-sm text-blue-400">Innovating Tomorrow's Apps, Today</span>
+              <div className="hero-reveal hero-reveal-delay-1 mt-8 max-w-5xl">
+                <p className="text-sm uppercase tracking-[0.26em] text-stone-500">Ahmad Zaky Wisnumurti</p>
+                <h1 className="display-title mt-4 max-w-[10ch] md:max-w-[9ch]">
+                  Shipping calm,
+                  <br />
+                  resilient mobile
+                  <br />
+                  products at scale.
+                </h1>
               </div>
-            </div>
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-400 bg-clip-text text-transparent animate-gradient-x">
-              Ahmad Zaky Wisnumurti
-            </h1>
-            <p className="text-xl md:text-2xl text-blue-300 mb-4 font-light">iOS Engineer</p>
-            <p className="text-lg text-slate-300 mb-8 max-w-2xl mx-auto leading-relaxed">
-              Crafting seamless user experiences with cutting-edge technology and scalable architecture
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button
-                size="lg"
-                onClick={() => scrollToSection("contact")}
-                className="bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 border-0 shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 transition-all duration-300"
-              >
-                <Mail className="w-4 h-4 mr-2" />
-                Let's Build Something Amazing
-              </Button>
-              <Button
-                variant="outline"
-                size="lg"
-                asChild
-                className="border-blue-500/50 text-blue-400 hover:bg-blue-500/10 hover:border-blue-400 transition-all duration-300 bg-transparent"
-              >
+
+              <div className="hero-reveal hero-reveal-delay-2 mt-8 grid gap-8 lg:grid-cols-[minmax(0,1fr)_14rem] lg:items-end">
+                <p className="max-w-2xl text-base leading-8 text-stone-700 md:text-[1.12rem]">
+                  {profile.tagline} I care about the work behind the interface too: architecture, delivery rhythm, product
+                  quality, and the small decisions that make teams faster over time.
+                </p>
+                <div className="border-l border-[rgba(80,61,43,0.18)] pl-5 text-sm leading-7 text-stone-600">
+                  <p className="uppercase tracking-[0.22em] text-stone-500">Current focus</p>
+                  <p className="mt-3">{profile.currentFocus}</p>
+                </div>
+              </div>
+
+              <div className="hero-reveal hero-reveal-delay-3 mt-10 flex flex-wrap items-center gap-4">
+                <Link
+                  className="inline-flex items-center gap-2 rounded-full border border-[rgba(80,61,43,0.22)] bg-[rgba(255,250,242,0.92)] px-6 py-3 text-sm font-medium text-stone-900 shadow-[0_10px_24px_rgba(57,40,24,0.08)] transition hover:-translate-y-0.5 hover:border-[#31443a] hover:text-[#31443a]"
+                  href="/articles"
+                >
+                  Read articles
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
                 <a
-                  href="/Resume_Ahmad Zaky Wisnumurti.pdf"
-                  download="Resume_Ahmad Zaky Wisnumurti.pdf"
+                  className="inline-flex items-center gap-2 text-sm font-medium text-stone-700 transition hover:text-[#31443a]"
+                  href={`mailto:${profile.email}`}
                 >
-                  <Download className="w-4 h-4 mr-2" />
-                  View Resume
+                  <Mail className="h-4 w-4" />
+                  {profile.email}
                 </a>
-              </Button>
-            </div>
-          </div>
-        </div>
-        <div className="absolute top-20 left-10 w-20 h-20 border border-blue-500/20 rotate-45 animate-float"></div>
-        <div className="absolute bottom-20 right-10 w-16 h-16 border border-cyan-500/20 rotate-12 animate-float-delayed"></div>
-      </section>
-
-      {/* About Section */}
-      <section id="about" className="py-20 px-6 relative">
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-cyan-500/5"></div>
-        <div className="max-w-4xl mx-auto relative z-10">
-          <h2 className="text-3xl font-bold mb-8 text-center bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
-            About Me
-          </h2>
-          <div className="text-lg text-slate-300 leading-relaxed text-center max-w-3xl mx-auto">
-            <p className="mb-6">
-              Passionate iOS Engineer dedicated to transforming ideas into efficient, user-friendly applications. I
-              specialize in building secure, high-performance mobile applications with clean code practices and
-              cutting-edge architectures.
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
-              <div className="text-center p-6 rounded-xl bg-slate-800/50 border border-blue-500/20 backdrop-blur-sm">
-                <Code className="w-8 h-8 text-blue-400 mx-auto mb-3" />
-                <h3 className="font-semibold text-blue-300 mb-2">Clean Architecture</h3>
-                <p className="text-sm text-slate-400">MVVM, modular design, and scalable code structures</p>
-              </div>
-              <div className="text-center p-6 rounded-xl bg-slate-800/50 border border-cyan-500/20 backdrop-blur-sm">
-                <Zap className="w-8 h-8 text-cyan-400 mx-auto mb-3" />
-                <h3 className="font-semibold text-cyan-300 mb-2">Performance</h3>
-                <p className="text-sm text-slate-400">15% faster apps with optimized user experiences</p>
-              </div>
-              <div className="text-center p-6 rounded-xl bg-slate-800/50 border border-blue-500/20 backdrop-blur-sm">
-                <Cpu className="w-8 h-8 text-blue-400 mx-auto mb-3" />
-                <h3 className="font-semibold text-blue-300 mb-2">Innovation</h3>
-                <p className="text-sm text-slate-400">Cutting-edge iOS technologies and best practices</p>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
 
-      {/* Experience Section with Enhanced Timeline */}
-      <section id="experience" className="py-20 px-6 relative">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold mb-16 text-center bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
-            My Journey in Code
-          </h2>
-          <div className="relative">
-            <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-500 via-cyan-500 to-blue-500 transform md:-translate-x-0.5 shadow-lg shadow-blue-500/50"></div>
-
-            {workExperience.map((job, index) => (
-              <div key={index} className={`relative mb-16 ${index % 2 === 0 ? "md:pr-1/2" : "md:pl-1/2 md:ml-auto"}`}>
-                <div
-                  className={`absolute w-6 h-6 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full border-4 border-slate-900 ${
-                    index % 2 === 0 ? "left-5 md:left-auto md:-right-3" : "left-5 md:-left-3"
-                  } top-6 z-10 shadow-lg shadow-blue-500/50`}
-                >
-                  {job.current && (
-                    <>
-                      <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-full animate-ping"></div>
-                      <div className="absolute inset-1 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full animate-pulse"></div>
-                    </>
-                  )}
+            <div className="hero-reveal hero-reveal-delay-4 paper-panel rounded-[2.2rem] p-6 md:p-7">
+              <div className="flex items-center justify-between gap-4">
+                <div>
+                  <p className="text-xs uppercase tracking-[0.28em] text-stone-500">Field notes</p>
+                  <p className="mt-3 text-sm leading-7 text-stone-700">
+                    Product-minded engineering for teams that need strong foundations without slowing delivery.
+                  </p>
                 </div>
+                <div className="flex h-12 w-12 items-center justify-center rounded-full border border-[rgba(80,61,43,0.16)] bg-[rgba(255,252,247,0.88)]">
+                  <MapPin className="h-4 w-4 text-stone-700" />
+                </div>
+              </div>
 
-                <Card
-                  className={`ml-16 md:ml-0 ${index % 2 === 0 ? "md:mr-8" : "md:ml-8"} 
-                    bg-slate-800/50 border-blue-500/20 backdrop-blur-xl hover:bg-slate-800/70 
-                    hover:border-blue-400/40 hover:shadow-xl hover:shadow-blue-500/20 
-                    transition-all duration-500 group hover:-translate-y-2`}
-                >
-                  <CardContent className="p-6">
-                    <div className="flex flex-col md:flex-row md:items-center justify-between mb-4">
-                      <div>
-                        <h3 className="text-xl font-bold text-blue-400 mb-1 group-hover:text-cyan-400 transition-colors duration-300">
-                          {job.company}
+              <div className="editorial-rule my-6" />
+
+              <div className="space-y-5">
+                {quickFacts.map((fact) => (
+                  <div key={fact.label} className="flex items-start justify-between gap-6">
+                    <p className="text-[11px] uppercase tracking-[0.26em] text-stone-500">{fact.label}</p>
+                    <p className="max-w-[12rem] text-right text-sm leading-6 text-stone-800">{fact.value}</p>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-8 rounded-[1.6rem] border border-[rgba(80,61,43,0.14)] bg-[rgba(255,250,242,0.7)] p-5">
+                <p className="text-[11px] uppercase tracking-[0.26em] text-stone-500">Availability</p>
+                <p className="mt-3 text-sm leading-7 text-stone-700">{profile.availability}</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="section-fade section-fade-delay-1 mx-auto grid w-full max-w-6xl gap-5 px-5 pb-20 sm:px-6 md:grid-cols-3">
+          {strengths.map((strength, index) => (
+            <div
+              key={strength.title}
+              className={`editorial-card rounded-[2rem] p-6 ${index === 1 ? "md:-translate-y-4" : ""}`}
+            >
+              <p className="text-xs uppercase tracking-[0.28em] text-stone-500">{strength.title}</p>
+              <p className="mt-4 text-base leading-7 text-stone-700">{strength.description}</p>
+            </div>
+          ))}
+        </section>
+
+        <section id="work" className="section-fade section-fade-delay-2 mx-auto w-full max-w-6xl px-5 py-18 sm:px-6">
+          <div className="grid gap-10 lg:grid-cols-[minmax(0,1.05fr)_20rem] lg:items-end">
+            <div className="max-w-3xl">
+              <p className="section-label">Selected work</p>
+              <h2 className="section-title">A portfolio that explains how the product got better, not just what shipped.</h2>
+              <p className="section-copy">{profile.intro}</p>
+            </div>
+
+            <div className="rounded-[1.8rem] border border-[rgba(80,61,43,0.14)] bg-[rgba(255,250,242,0.62)] p-5">
+              <p className="text-[11px] uppercase tracking-[0.28em] text-stone-500">Why this format</p>
+              <p className="mt-3 text-sm leading-7 text-stone-700">
+                I prefer portfolios that show engineering judgment, delivery tradeoffs, and writing, not just screenshots.
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-12 grid gap-6 lg:grid-cols-[minmax(0,1.1fr)_minmax(18rem,0.75fr)]">
+            <div className="paper-panel paper-cut rounded-[2.2rem] p-8 md:p-10">
+              <p className="text-xs uppercase tracking-[0.28em] text-stone-500">Selected projects</p>
+              <div className="mt-8 space-y-9">
+                {projects.map((project) => (
+                  <div key={project.name} className="border-t border-[rgba(80,61,43,0.12)] pt-7 first:border-t-0 first:pt-0">
+                    <div className="flex flex-col gap-5 md:flex-row md:items-start md:justify-between">
+                      <div className="max-w-2xl">
+                        <h3
+                          className="text-3xl tracking-[-0.03em] text-stone-950"
+                          style={{ fontFamily: "var(--font-display)", lineHeight: "0.98" }}
+                        >
+                          {project.name}
                         </h3>
-                        <p className="text-lg font-semibold mb-2 text-slate-200">{job.position}</p>
+                        <p className="mt-3 text-base leading-7 text-stone-700">{project.description}</p>
                       </div>
-                      {job.current && (
-                        <Badge className="w-fit bg-gradient-to-r from-blue-600 to-cyan-600 text-white border-0">
-                          Current
-                        </Badge>
-                      )}
+                      <Link
+                        className="inline-flex items-center gap-2 text-sm font-medium text-stone-700 transition hover:text-[#31443a]"
+                        href={project.link}
+                        target="_blank"
+                      >
+                        Open
+                        <ArrowRight className="h-4 w-4" />
+                      </Link>
                     </div>
 
-                    <div className="flex flex-col sm:flex-row gap-4 mb-4 text-sm text-slate-400">
-                      <div className="flex items-center gap-1">
-                        <Calendar className="w-4 h-4 text-blue-400" />
-                        {job.duration}
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <MapPin className="w-4 h-4 text-cyan-400" />
-                        {job.location}
-                      </div>
-                    </div>
-
-                    <p className="text-slate-300 mb-4 italic leading-relaxed">{job.description}</p>
-
-                    <div className="space-y-2">
-                      <h4 className="font-semibold text-sm uppercase tracking-wide text-blue-300">
-                        Milestone Achieved:
-                      </h4>
-                      <ul className="space-y-2">
-                        {job.achievements.map((achievement, i) => (
-                          <li key={i} className="flex items-start gap-2 text-sm text-slate-300">
-                            <div className="w-1.5 h-1.5 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-full mt-2 flex-shrink-0"></div>
-                            <span>{achievement}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Education & Certifications */}
-      <section id="education" className="py-20 px-6 relative">
-        <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/5 to-blue-500/5"></div>
-        <div className="max-w-4xl mx-auto relative z-10">
-          <h2 className="text-3xl font-bold mb-12 text-center bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
-            Education & Certifications
-          </h2>
-          <div className="grid md:grid-cols-2 gap-8">
-            <Card className="bg-slate-800/50 border-cyan-500/20 backdrop-blur-xl hover:bg-slate-800/70 hover:border-cyan-400/40 hover:shadow-xl hover:shadow-cyan-500/20 transition-all duration-500 hover:-translate-y-1">
-              <CardContent className="p-6">
-                <div className="flex items-start gap-4">
-                  <div className="p-2 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 rounded-lg border border-cyan-500/30">
-                    <GraduationCap className="w-6 h-6 text-cyan-400" />
-                  </div>
-                  <div>
-                    <h3 className="font-bold mb-2 text-slate-200">B.E. Electrical Engineering</h3>
-                    <p className="text-slate-300 mb-1">Universitas Gadjah Mada, Indonesia</p>
-                    <p className="text-sm text-slate-400">2016–2020</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="bg-slate-800/50 border-blue-500/20 backdrop-blur-xl hover:bg-slate-800/70 hover:border-blue-400/40 hover:shadow-xl hover:shadow-blue-500/20 transition-all duration-500 hover:-translate-y-1">
-              <CardContent className="p-6">
-                <div className="flex items-start gap-4">
-                  <div className="p-2 bg-gradient-to-r from-blue-500/20 to-cyan-500/20 rounded-lg border border-blue-500/30">
-                    <Award className="w-6 h-6 text-blue-400" />
-                  </div>
-                  <div>
-                    <h3 className="font-bold mb-2 text-slate-200">Apple Developer Academy Graduate</h3>
-                    <p className="text-sm text-slate-400">2021</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="bg-slate-800/50 border-blue-500/20 backdrop-blur-xl hover:bg-slate-800/70 hover:border-blue-400/40 hover:shadow-xl hover:shadow-blue-500/20 transition-all duration-500 hover:-translate-y-1 md:col-span-2">
-              <CardContent className="p-6">
-                <div className="flex items-start gap-4">
-                  <div className="p-2 bg-gradient-to-r from-blue-500/20 to-cyan-500/20 rounded-lg border border-blue-500/30">
-                    <Award className="w-6 h-6 text-blue-400" />
-                  </div>
-                  <div>
-                    <h3 className="font-bold mb-2 text-slate-200">iOS Lead Essentials</h3>
-                    <p className="text-slate-300 mb-1">Essentials Developer by Caio and Mike</p>
-                    <p className="text-sm text-slate-400">2024</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* Skills Section */}
-      <section id="skills" className="py-20 px-6">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl font-bold mb-12 text-center bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
-            Skills & Languages
-          </h2>
-          <div className="grid md:grid-cols-2 gap-8">
-            <div>
-              <h3 className="text-xl font-semibold mb-6 text-blue-300">Technical Skills</h3>
-              <div className="flex flex-wrap gap-3">
-                {skills.map((skill, index) => (
-                  <Badge
-                    key={index}
-                    className="text-sm py-2 px-4 bg-gradient-to-r from-blue-600/20 to-cyan-600/20 border-blue-500/30 text-blue-300 hover:from-blue-600/30 hover:to-cyan-600/30 hover:border-blue-400/50 transition-all duration-300 hover:scale-105"
-                  >
-                    {skill}
-                  </Badge>
-                ))}
-              </div>
-            </div>
-            <div>
-              <h3 className="text-xl font-semibold mb-6 text-cyan-300">Languages</h3>
-              <div className="flex flex-wrap gap-3">
-                {languages.map((language, index) => (
-                  <Badge
-                    key={index}
-                    className="text-sm py-2 px-4 bg-slate-800/50 border-cyan-500/30 text-cyan-300 hover:bg-slate-800/70 hover:border-cyan-400/50 transition-all duration-300 hover:scale-105"
-                  >
-                    {language}
-                  </Badge>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Projects Section */}
-      <section id="projects" className="py-20 px-6 relative">
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-cyan-500/5"></div>
-        <div className="max-w-6xl mx-auto relative z-10">
-          <h2 className="text-3xl font-bold mb-12 text-center bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
-            Projects that Inspire
-          </h2>
-          <div className="grid md:grid-cols-2 gap-8">
-            {projects.map((project, index) => (
-              <Card
-                key={index}
-                className="bg-slate-800/50 border-blue-500/20 backdrop-blur-xl hover:bg-slate-800/70 hover:border-blue-400/40 hover:shadow-xl hover:shadow-blue-500/20 transition-all duration-500 group hover:-translate-y-2"
-              >
-                <CardContent className="p-6">
-                  <div className="flex items-start justify-between mb-4">
-                    <h3 className="text-xl font-bold text-blue-400 group-hover:text-cyan-400 transition-colors duration-300">
-                      {project.name}
-                    </h3>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      asChild
-                      className="text-slate-400 hover:text-blue-400 hover:bg-blue-500/10 transition-all duration-300"
-                    >
-                      <a href={project.link} target="_blank" rel="noopener noreferrer">
-                        <ExternalLink className="w-4 h-4" />
-                      </a>
-                    </Button>
-                  </div>
-                  <p className="text-slate-300 mb-4 leading-relaxed">{project.description}</p>
-                  <div className="space-y-2">
-                    <h4 className="font-semibold text-sm uppercase tracking-wide text-cyan-300">
-                      Innovation Unleashed:
-                    </h4>
-                    <ul className="space-y-2">
-                      {project.features.map((feature, i) => (
-                        <li key={i} className="flex items-start gap-2 text-sm text-slate-300">
-                          <div className="w-1.5 h-1.5 bg-gradient-to-r from-cyan-400 to-blue-400 rounded-full mt-2 flex-shrink-0"></div>
-                          <span>{feature}</span>
+                    <ul className="mt-6 grid gap-3 text-sm leading-6 text-stone-600 md:grid-cols-2">
+                      {project.features.map((feature) => (
+                        <li key={feature} className="rounded-[1.3rem] bg-[rgba(255,250,242,0.72)] p-4">
+                          {feature}
                         </li>
                       ))}
                     </ul>
                   </div>
-                </CardContent>
-              </Card>
+                ))}
+              </div>
+            </div>
+
+            <div className="grid gap-5">
+              <div className="editorial-card rounded-[2rem] p-6">
+                <p className="text-xs uppercase tracking-[0.28em] text-stone-500">Toolbox</p>
+                <div className="mt-5 flex flex-wrap gap-2">
+                  {skills.map((skill) => (
+                    <span
+                      key={skill}
+                      className="rounded-full border border-[rgba(117,95,71,0.16)] bg-[rgba(238,234,223,0.65)] px-3 py-2 text-sm text-stone-800"
+                    >
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <div className="rounded-[2rem] border border-[rgba(80,61,43,0.16)] bg-[#31443a] p-6 text-stone-50 shadow-[0_18px_44px_rgba(49,68,58,0.24)]">
+                <p className="text-xs uppercase tracking-[0.28em] text-stone-200/80">Collaboration style</p>
+                <p className="mt-4 text-base leading-7 text-stone-100">
+                  Code review, pairing, testing discipline, and architecture decisions that keep teams shipping without noise.
+                </p>
+              </div>
+
+              <div className="editorial-card rounded-[2rem] p-6">
+                <p className="text-xs uppercase tracking-[0.28em] text-stone-500">Languages</p>
+                <div className="mt-5 flex flex-wrap gap-2">
+                  {languages.map((language) => (
+                    <span
+                      key={language}
+                      className="rounded-full border border-[rgba(117,95,71,0.16)] bg-[rgba(255,250,242,0.86)] px-3 py-2 text-sm text-stone-800"
+                    >
+                      {language}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="experience" className="section-fade section-fade-delay-3 mx-auto w-full max-w-6xl px-5 py-18 sm:px-6">
+          <div className="max-w-3xl">
+            <p className="section-label">Experience</p>
+            <h2 className="section-title">Shipping product work from architecture to the final experience.</h2>
+          </div>
+
+          <div className="mt-12 space-y-6">
+            {workExperience.map((job, index) => (
+              <article
+                key={job.company}
+                className={`rounded-[2.1rem] border border-[rgba(80,61,43,0.14)] p-8 shadow-[0_18px_44px_rgba(57,40,24,0.08)] md:p-10 ${
+                  index === 1 ? "bg-[rgba(255,251,245,0.84)]" : "bg-[rgba(249,241,231,0.84)]"
+                }`}
+              >
+                <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
+                  <div>
+                    <div className="flex flex-wrap items-center gap-3">
+                      <h3
+                        className="text-3xl tracking-[-0.03em] text-stone-950"
+                        style={{ fontFamily: "var(--font-display)", lineHeight: "0.98" }}
+                      >
+                        {job.company}
+                      </h3>
+                      {job.current ? (
+                        <span className="rounded-full bg-[#31443a] px-3 py-1 text-xs uppercase tracking-[0.2em] text-stone-50">
+                          Current
+                        </span>
+                      ) : null}
+                    </div>
+                    <p className="mt-3 text-base font-medium text-stone-700">{job.position}</p>
+                    <p className="mt-2 text-sm uppercase tracking-[0.18em] text-stone-500">
+                      {job.duration} • {job.location}
+                    </p>
+                  </div>
+
+                  <div className="max-w-sm border-l border-[rgba(80,61,43,0.14)] pl-5 text-sm leading-7 text-stone-600">
+                    {job.description}
+                  </div>
+                </div>
+
+                <ul className="mt-8 grid gap-3 text-sm leading-6 text-stone-700 md:grid-cols-2">
+                  {job.achievements.map((achievement) => (
+                    <li key={achievement} className="rounded-[1.4rem] bg-[rgba(255,250,242,0.7)] p-4">
+                      {achievement}
+                    </li>
+                  ))}
+                </ul>
+              </article>
             ))}
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Contact Section */}
-      <section id="contact" className="py-20 relative z-[99] px-6">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl font-bold mb-8 bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
-            Let's Build Something Amazing Together
-          </h2>
-          <p className="text-lg text-slate-300 mb-12 leading-relaxed">
-            Ready to collaborate on the next breakthrough iOS application? Let's connect and create something
-            extraordinary.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <a 
-              href="mailto:azakyw@gmail.com" 
-              className="inline-flex items-center justify-center gap-2 h-10 px-6 rounded-md text-sm font-medium bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 border-0 shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 transition-all duration-300 hover:scale-105 text-white no-underline"
+        <section className="mx-auto grid w-full max-w-6xl gap-5 px-5 py-18 sm:px-6 md:grid-cols-[1.15fr_0.85fr_0.85fr]">
+          {education.map((item, index) => (
+            <article
+              key={item.title}
+              className={`rounded-[2rem] border border-[rgba(80,61,43,0.14)] p-6 shadow-[0_14px_34px_rgba(28,25,23,0.05)] ${
+                index === 0 ? "bg-[rgba(255,251,245,0.9)]" : "bg-[rgba(250,244,236,0.74)]"
+              }`}
             >
-              <Mail className="w-5 h-5" />
-              azakyw@gmail.com
-            </a>
-            <a
-              href="https://www.linkedin.com/in/ahmadzakyw/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 h-10 px-6 rounded-md text-sm font-medium bg-slate-800/50 border border-blue-500/30 text-blue-300 hover:bg-slate-800/70 hover:border-blue-400/50 hover:text-blue-200 transition-all duration-300 hover:scale-105 no-underline"
+              <p className="text-xs uppercase tracking-[0.28em] text-stone-500">Education & credentials</p>
+              <h3
+                className="mt-4 text-[1.85rem] tracking-[-0.03em] text-stone-950"
+                style={{ fontFamily: "var(--font-display)", lineHeight: "0.98" }}
+              >
+                {item.title}
+              </h3>
+              {item.subtitle ? <p className="mt-3 text-sm leading-6 text-stone-600">{item.subtitle}</p> : null}
+              <p className="mt-5 text-sm font-medium uppercase tracking-[0.18em] text-stone-500">{item.year}</p>
+            </article>
+          ))}
+        </section>
+
+        <section className="mx-auto w-full max-w-6xl px-5 py-18 sm:px-6">
+          <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-end">
+            <div className="max-w-3xl">
+              <p className="section-label">Writing</p>
+              <h2 className="section-title">Articles are part of the portfolio, not an afterthought.</h2>
+              <p className="section-copy">
+                I use writing to clarify engineering choices, share production lessons, and capture how I think about
+                building iOS products.
+              </p>
+            </div>
+            <Link
+              className="inline-flex items-center justify-between rounded-[1.7rem] border border-[rgba(80,61,43,0.14)] bg-[rgba(255,250,242,0.7)] px-5 py-4 text-sm font-medium text-stone-900 transition hover:border-[#31443a] hover:text-[#31443a]"
+              href="/articles"
             >
-              <Linkedin className="w-5 h-5" />
-              LinkedIn
-            </a>
-            <a
-              href="https://github.com/zakywisnu"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 h-10 px-6 rounded-md text-sm font-medium bg-slate-800/50 border border-cyan-500/30 text-cyan-300 hover:bg-slate-800/70 hover:border-cyan-400/50 hover:text-cyan-200 transition-all duration-300 hover:scale-105 no-underline"
-            >
-              <Github className="w-5 h-5" />
-              GitHub
-            </a>
+              All articles
+              <ArrowRight className="h-4 w-4" />
+            </Link>
           </div>
-        </div>
-      </section>
 
-      {/* Footer */}
-      <footer className="py-8 px-6 border-t border-blue-500/20 bg-slate-900/50 backdrop-blur-xl">
-        <div className="max-w-6xl mx-auto text-center text-slate-400">
-          <p>&copy; 2024 Ahmad Zaky Wisnumurti. All rights reserved.</p>
-        </div>
-      </footer>
+          <div className="mt-10 grid gap-5">
+            {recentArticles.map((article, index) => (
+              <ArticleCard key={article.slug} article={article} featured={index === 0} />
+            ))}
+          </div>
+        </section>
+      </main>
+
+      <SiteFooter />
     </div>
   )
 }
