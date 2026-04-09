@@ -29,13 +29,6 @@ export function SiteHeader() {
               {link.label}
             </Link>
           ))}
-          <Link
-            className="hidden rounded-full border border-[#31443a] bg-[#31443a] px-4 py-2 font-medium text-stone-50 shadow-[0_10px_26px_rgba(49,68,58,0.2)] transition hover:-translate-y-0.5 hover:bg-[#27372f] md:inline-flex"
-            href={profile.resumeHref}
-            target="_blank"
-          >
-            Resume
-          </Link>
         </nav>
       </div>
     </header>
