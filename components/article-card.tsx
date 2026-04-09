@@ -14,6 +14,12 @@ export function ArticleCard({ article, featured = false }: ArticleCardProps) {
         featured ? "p-8 md:p-10" : "p-6 md:p-7"
       }`}
     >
+      {article.coverImage ? (
+        <div className="mb-6 overflow-hidden rounded-2xl border border-[rgba(117,95,71,0.2)]">
+          <img alt={article.title} className="h-auto w-full object-cover" loading="lazy" src={article.coverImage} />
+        </div>
+      ) : null}
+
       <div className="flex flex-wrap items-center gap-3 text-sm uppercase tracking-[0.18em] text-stone-500">
         <span>{formatArticleDate(article.publishedAt)}</span>
         <span>&bull;</span>

@@ -88,6 +88,16 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
 
         <div className="mt-14 grid gap-12 lg:grid-cols-[minmax(0,1fr)_18rem]">
           <article className="paper-panel rounded-[2.2rem] px-6 py-10 md:px-10">
+            {compiled.frontmatter.coverImage ? (
+              <div className="mb-8 overflow-hidden rounded-2xl border border-[rgba(117,95,71,0.2)]">
+                <img
+                  alt={compiled.frontmatter.title}
+                  className="h-auto w-full object-cover"
+                  loading="lazy"
+                  src={compiled.frontmatter.coverImage}
+                />
+              </div>
+            ) : null}
             <div className="prose-shell">{compiled.content}</div>
           </article>
 
