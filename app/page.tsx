@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { ArrowRight, Mail, MapPin } from "lucide-react"
+import { ArrowRight, ArrowUpRight, Mail, MapPin } from "lucide-react"
 
 import { ArticleCard } from "@/components/article-card"
 import { SiteFooter } from "@/components/site-footer"
@@ -17,148 +17,149 @@ export default function HomePage() {
   const recentArticles = getRecentArticles(3)
 
   return (
-    <div className="flex min-h-screen flex-col text-stone-900">
+    <div className="flex min-h-dvh flex-col">
       <SiteHeader />
 
-      <main className="flex-1">
-        <section className="relative overflow-hidden px-5 pb-18 pt-10 sm:px-6 md:pt-18">
-          <div className="pointer-events-none absolute inset-x-0 top-0 h-[42rem] bg-[radial-gradient(circle_at_18%_18%,rgba(183,123,55,0.2),transparent_22%),radial-gradient(circle_at_82%_12%,rgba(49,68,58,0.14),transparent_18%),linear-gradient(180deg,rgba(255,252,247,0.82),rgba(255,252,247,0.18)_55%,rgba(255,252,247,0))]" />
-          <div className="mx-auto grid w-full max-w-6xl gap-10 lg:grid-cols-[minmax(0,1.2fr)_22rem] lg:items-start">
-            <div className="relative">
-              <p className="display-eyebrow hero-reveal">
-                <span className="h-2 w-2 rounded-full bg-[var(--olive)]" />
+      <main className="flex-1" id="main">
+        {/* ---------------------------------------------------------- Hero */}
+        <section className="relative px-5 pb-20 pt-12 sm:px-6 md:pt-20">
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-x-0 top-0 h-[38rem] bg-[radial-gradient(circle_at_18%_12%,var(--amber-wash),transparent_28%),radial-gradient(circle_at_82%_8%,var(--accent-wash),transparent_24%)]"
+          />
+
+          <div className="relative mx-auto grid w-full max-w-6xl gap-12 lg:grid-cols-[minmax(0,1.25fr)_20rem] lg:items-start">
+            <div>
+              <p className="rise-in eyebrow inline-flex items-center gap-2.5 rounded-full border border-line bg-surface px-3.5 py-2">
+                <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-accent" />
                 iOS engineer portfolio
               </p>
 
-              <div className="hero-reveal hero-reveal-delay-1 mt-8 max-w-5xl">
-                <p className="text-sm uppercase tracking-[0.26em] text-stone-500">Ahmad Zaky Wisnumurti</p>
-                <h1 className="display-title mt-4 max-w-[10ch] md:max-w-[9ch]">
-                  Shipping calm,
-                  <br />
-                  resilient mobile
-                  <br />
-                  products at scale.
-                </h1>
+              <div className="rise-in rise-in-1 mt-8">
+                <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-ink-subtle">{profile.name}</p>
+                <h1 className="display-title mt-4 max-w-[11ch]">Shipping calm, resilient mobile products at scale.</h1>
               </div>
 
-              <div className="hero-reveal hero-reveal-delay-2 mt-8 grid gap-8 lg:grid-cols-[minmax(0,1fr)_14rem] lg:items-end">
-                <p className="max-w-2xl text-base leading-8 text-stone-700 md:text-[1.12rem]">
-                  {profile.tagline} I care about the work behind the interface too: architecture, delivery rhythm, product
-                  quality, and the small decisions that make teams faster over time.
+              <div className="rise-in rise-in-2 mt-9 grid gap-8 lg:grid-cols-[minmax(0,1fr)_13rem] lg:items-start">
+                <p className="lede">
+                  {profile.tagline} I care about the work behind the interface too: architecture, delivery rhythm,
+                  product quality, and the small decisions that make teams faster over time.
                 </p>
-                <div className="border-l border-[rgba(80,61,43,0.18)] pl-5 text-sm leading-7 text-stone-600">
-                  <p className="uppercase tracking-[0.22em] text-stone-500">Current focus</p>
-                  <p className="mt-3">{profile.currentFocus}</p>
+                <div className="border-l border-line pl-5">
+                  <p className="eyebrow">Current focus</p>
+                  <p className="mt-3 text-sm leading-7 text-ink-muted">{profile.currentFocus}</p>
                 </div>
               </div>
 
-              <div className="hero-reveal hero-reveal-delay-3 mt-10 flex flex-wrap items-center gap-4">
-                <Link
-                  className="inline-flex items-center gap-2 rounded-full border border-[rgba(80,61,43,0.22)] bg-[rgba(255,250,242,0.92)] px-6 py-3 text-sm font-medium text-stone-900 shadow-[0_10px_24px_rgba(57,40,24,0.08)] transition hover:-translate-y-0.5 hover:border-[#31443a] hover:text-[#31443a]"
-                  href="/articles"
-                >
+              <div className="rise-in rise-in-3 mt-10 flex flex-wrap items-center gap-3">
+                <Link className="btn-primary" href="/articles">
                   Read articles
-                  <ArrowRight className="h-4 w-4" />
+                  <ArrowRight aria-hidden className="h-4 w-4" />
                 </Link>
-                <a
-                  className="inline-flex items-center gap-2 text-sm font-medium text-stone-700 transition hover:text-[#31443a]"
-                  href={`mailto:${profile.email}`}
-                >
-                  <Mail className="h-4 w-4" />
+                <a className="btn-secondary" href={`mailto:${profile.email}`}>
+                  <Mail aria-hidden className="h-4 w-4" />
                   {profile.email}
                 </a>
               </div>
             </div>
 
-            <div className="hero-reveal hero-reveal-delay-4 paper-panel rounded-[2.2rem] p-6 md:p-7">
-              <div className="flex items-center justify-between gap-4">
-                <div>
-                  <p className="text-xs uppercase tracking-[0.28em] text-stone-500">Field notes</p>
-                  <p className="mt-3 text-sm leading-7 text-stone-700">
-                    Product-minded engineering for teams that need strong foundations without slowing delivery.
-                  </p>
-                </div>
-                <div className="flex h-12 w-12 items-center justify-center rounded-full border border-[rgba(80,61,43,0.16)] bg-[rgba(255,252,247,0.88)]">
-                  <MapPin className="h-4 w-4 text-stone-700" />
-                </div>
+            {/* Aside is decorative-adjacent context, so it follows the main
+                column in the DOM and reads last on a screen reader. */}
+            <aside className="rise-in rise-in-4 paper-panel rounded-[var(--radius-panel)] p-6 md:p-7">
+              <div className="flex items-start justify-between gap-4">
+                <p className="max-w-[16rem] text-sm leading-7 text-ink-muted">
+                  Product-minded engineering for teams that need strong foundations without slowing delivery.
+                </p>
+                <span
+                  aria-hidden
+                  className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-line bg-surface-sunken"
+                >
+                  <MapPin className="h-4 w-4 text-ink-muted" />
+                </span>
               </div>
 
-              <div className="editorial-rule my-6" />
+              <hr className="editorial-rule my-6" />
 
-              <div className="space-y-5">
+              <dl className="space-y-5">
                 {quickFacts.map((fact) => (
-                  <div key={fact.label} className="flex items-start justify-between gap-6">
-                    <p className="text-[11px] uppercase tracking-[0.26em] text-stone-500">{fact.label}</p>
-                    <p className="max-w-[12rem] text-right text-sm leading-6 text-stone-800">{fact.value}</p>
+                  <div className="flex items-start justify-between gap-6" key={fact.label}>
+                    <dt className="eyebrow">{fact.label}</dt>
+                    <dd className="max-w-[11rem] text-right text-sm leading-6 text-ink">{fact.value}</dd>
                   </div>
                 ))}
-              </div>
+              </dl>
 
-              <div className="mt-8 rounded-[1.6rem] border border-[rgba(80,61,43,0.14)] bg-[rgba(255,250,242,0.7)] p-5">
-                <p className="text-[11px] uppercase tracking-[0.26em] text-stone-500">Availability</p>
-                <p className="mt-3 text-sm leading-7 text-stone-700">{profile.availability}</p>
+              <div className="mt-7 rounded-[var(--radius-card)] border border-line bg-surface-sunken p-5">
+                <p className="eyebrow">Availability</p>
+                <p className="mt-3 text-sm leading-7 text-ink-muted">{profile.availability}</p>
               </div>
-            </div>
+            </aside>
           </div>
         </section>
 
-        <section className="section-fade section-fade-delay-1 mx-auto grid w-full max-w-6xl gap-5 px-5 pb-20 sm:px-6 md:grid-cols-3">
-          {strengths.map((strength, index) => (
-            <div
-              key={strength.title}
-              className={`editorial-card rounded-[2rem] p-6 ${index === 1 ? "md:-translate-y-4" : ""}`}
-            >
-              <p className="text-xs uppercase tracking-[0.28em] text-stone-500">{strength.title}</p>
-              <p className="mt-4 text-base leading-7 text-stone-700">{strength.description}</p>
-            </div>
-          ))}
+        {/* ----------------------------------------------------- Strengths */}
+        <section aria-label="Strengths" className="mx-auto w-full max-w-6xl px-5 pb-24 sm:px-6">
+          <div className="reveal grid gap-4 md:grid-cols-3">
+            {strengths.map((strength) => (
+              <div className="editorial-card rounded-[var(--radius-panel)] p-6" key={strength.title}>
+                <span aria-hidden className="block h-px w-8 bg-accent" />
+                <h2 className="card-title mt-5 text-[1.35rem]">{strength.title}</h2>
+                <p className="mt-3 text-[0.9375rem] leading-7 text-ink-muted">{strength.description}</p>
+              </div>
+            ))}
+          </div>
         </section>
 
-        <section id="work" className="section-fade section-fade-delay-2 mx-auto w-full max-w-6xl px-5 py-18 sm:px-6">
-          <div className="grid gap-10 lg:grid-cols-[minmax(0,1.05fr)_20rem] lg:items-end">
-            <div className="max-w-3xl">
+        {/* ---------------------------------------------------------- Work */}
+        <section className="reveal mx-auto w-full max-w-6xl px-5 py-20 sm:px-6" id="work">
+          <div className="grid gap-10 lg:grid-cols-[minmax(0,1.05fr)_18rem] lg:items-end">
+            <div>
               <p className="section-label">Selected work</p>
-              <h2 className="section-title">A portfolio that explains how the product got better, not just what shipped.</h2>
+              <h2 className="section-title">
+                A portfolio that explains how the product got better, not just what shipped.
+              </h2>
               <p className="section-copy">{profile.intro}</p>
             </div>
 
-            <div className="rounded-[1.8rem] border border-[rgba(80,61,43,0.14)] bg-[rgba(255,250,242,0.62)] p-5">
-              <p className="text-[11px] uppercase tracking-[0.28em] text-stone-500">Why this format</p>
-              <p className="mt-3 text-sm leading-7 text-stone-700">
-                I prefer portfolios that show engineering judgment, delivery tradeoffs, and writing, not just screenshots.
+            <div className="rounded-[var(--radius-card)] border border-line bg-surface-sunken p-5">
+              <p className="eyebrow">Why this format</p>
+              <p className="mt-3 text-sm leading-7 text-ink-muted">
+                I prefer portfolios that show engineering judgment, delivery tradeoffs, and writing, not just
+                screenshots.
               </p>
             </div>
           </div>
 
-          <div className="mt-12 grid gap-6 lg:grid-cols-[minmax(0,1.1fr)_minmax(18rem,0.75fr)]">
-            <div className="paper-panel paper-cut rounded-[2.2rem] p-8 md:p-10">
-              <p className="text-xs uppercase tracking-[0.28em] text-stone-500">Selected projects</p>
+          <div className="mt-12 grid gap-5 lg:grid-cols-[minmax(0,1.15fr)_minmax(17rem,0.7fr)]">
+            <div className="paper-panel paper-cut rounded-[var(--radius-panel)] p-7 md:p-10">
+              <h3 className="eyebrow">Selected projects</h3>
+
               <div className="mt-8 space-y-9">
                 {projects.map((project) => (
-                  <div key={project.name} className="border-t border-[rgba(80,61,43,0.12)] pt-7 first:border-t-0 first:pt-0">
-                    <div className="flex flex-col gap-5 md:flex-row md:items-start md:justify-between">
+                  <div className="border-t border-line pt-8 first:border-t-0 first:pt-0" key={project.name}>
+                    <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
                       <div className="max-w-2xl">
-                        <h3
-                          className="text-3xl tracking-[-0.03em] text-stone-950"
-                          style={{ fontFamily: "var(--font-display)", lineHeight: "0.98" }}
-                        >
-                          {project.name}
-                        </h3>
-                        <p className="mt-3 text-base leading-7 text-stone-700">{project.description}</p>
+                        <h4 className="card-title text-[1.65rem] md:text-[1.85rem]">{project.name}</h4>
+                        <p className="mt-3 text-[0.9375rem] leading-7 text-ink-muted">{project.description}</p>
                       </div>
                       <Link
-                        className="inline-flex items-center gap-2 text-sm font-medium text-stone-700 transition hover:text-[#31443a]"
+                        className="link-quiet inline-flex min-h-11 shrink-0 items-center gap-1.5 self-start text-sm font-medium"
                         href={project.link}
+                        rel="noreferrer"
                         target="_blank"
                       >
-                        Open
-                        <ArrowRight className="h-4 w-4" />
+                        <span className="sr-only">Open {project.name}</span>
+                        <span aria-hidden>Open</span>
+                        <ArrowUpRight aria-hidden className="h-4 w-4" />
                       </Link>
                     </div>
 
-                    <ul className="mt-6 grid gap-3 text-sm leading-6 text-stone-600 md:grid-cols-2">
+                    <ul className="mt-6 grid gap-2.5 md:grid-cols-2">
                       {project.features.map((feature) => (
-                        <li key={feature} className="rounded-[1.3rem] bg-[rgba(255,250,242,0.72)] p-4">
+                        <li
+                          className="rounded-[var(--radius-card)] bg-surface-sunken p-4 text-sm leading-6 text-ink-muted"
+                          key={feature}
+                        >
                           {feature}
                         </li>
                       ))}
@@ -168,121 +169,112 @@ export default function HomePage() {
               </div>
             </div>
 
-            <div className="grid gap-5">
-              <div className="editorial-card rounded-[2rem] p-6">
-                <p className="text-xs uppercase tracking-[0.28em] text-stone-500">Toolbox</p>
-                <div className="mt-5 flex flex-wrap gap-2">
+            <div className="grid content-start gap-4">
+              <div className="editorial-card rounded-[var(--radius-panel)] p-6">
+                <h3 className="eyebrow">Toolbox</h3>
+                <ul className="mt-5 flex flex-wrap gap-2">
                   {skills.map((skill) => (
-                    <span
-                      key={skill}
-                      className="rounded-full border border-[rgba(117,95,71,0.16)] bg-[rgba(238,234,223,0.65)] px-3 py-2 text-sm text-stone-800"
-                    >
+                    <li className="pill" key={skill}>
                       {skill}
-                    </span>
+                    </li>
                   ))}
-                </div>
+                </ul>
               </div>
 
-              <div className="rounded-[2rem] border border-[rgba(80,61,43,0.16)] bg-[#31443a] p-6 text-stone-50 shadow-[0_18px_44px_rgba(49,68,58,0.24)]">
-                <p className="text-xs uppercase tracking-[0.28em] text-stone-200/80">Collaboration style</p>
-                <p className="mt-4 text-base leading-7 text-stone-100">
-                  Code review, pairing, testing discipline, and architecture decisions that keep teams shipping without noise.
+              <div className="rounded-[var(--radius-panel)] bg-accent p-6 text-[var(--accent-contrast)] shadow-[var(--shadow-lg)]">
+                <h3 className="font-mono text-[11px] uppercase tracking-[0.2em] opacity-80">Collaboration style</h3>
+                <p className="mt-4 text-[0.9375rem] leading-7">
+                  Code review, pairing, testing discipline, and architecture decisions that keep teams shipping without
+                  noise.
                 </p>
               </div>
 
-              <div className="editorial-card rounded-[2rem] p-6">
-                <p className="text-xs uppercase tracking-[0.28em] text-stone-500">Languages</p>
-                <div className="mt-5 flex flex-wrap gap-2">
+              <div className="editorial-card rounded-[var(--radius-panel)] p-6">
+                <h3 className="eyebrow">Languages</h3>
+                <ul className="mt-5 flex flex-wrap gap-2">
                   {languages.map((language) => (
-                    <span
-                      key={language}
-                      className="rounded-full border border-[rgba(117,95,71,0.16)] bg-[rgba(255,250,242,0.86)] px-3 py-2 text-sm text-stone-800"
-                    >
+                    <li className="pill" key={language}>
                       {language}
-                    </span>
+                    </li>
                   ))}
-                </div>
+                </ul>
               </div>
             </div>
           </div>
         </section>
 
-        <section id="experience" className="section-fade section-fade-delay-3 mx-auto w-full max-w-6xl px-5 py-18 sm:px-6">
-          <div className="max-w-3xl">
+        {/* ---------------------------------------------------- Experience */}
+        <section className="reveal mx-auto w-full max-w-6xl px-5 py-20 sm:px-6" id="experience">
+          <div>
             <p className="section-label">Experience</p>
             <h2 className="section-title">Shipping product work from architecture to the final experience.</h2>
           </div>
 
-          <div className="mt-12 space-y-6">
-            {workExperience.map((job, index) => (
-              <article
-                key={job.company}
-                className={`rounded-[2.1rem] border border-[rgba(80,61,43,0.14)] p-8 shadow-[0_18px_44px_rgba(57,40,24,0.08)] md:p-10 ${
-                  index === 1 ? "bg-[rgba(255,251,245,0.84)]" : "bg-[rgba(249,241,231,0.84)]"
-                }`}
-              >
-                <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
-                  <div>
-                    <div className="flex flex-wrap items-center gap-3">
-                      <h3
-                        className="text-3xl tracking-[-0.03em] text-stone-950"
-                        style={{ fontFamily: "var(--font-display)", lineHeight: "0.98" }}
-                      >
-                        {job.company}
-                      </h3>
-                      {job.current ? (
-                        <span className="rounded-full bg-[#31443a] px-3 py-1 text-xs uppercase tracking-[0.2em] text-stone-50">
-                          Current
-                        </span>
-                      ) : null}
+          <ol className="mt-12 space-y-5">
+            {workExperience.map((job) => (
+              <li key={job.company}>
+                <article className="editorial-card rounded-[var(--radius-panel)] p-7 md:p-10">
+                  <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
+                    <div>
+                      <div className="flex flex-wrap items-center gap-3">
+                        <h3 className="card-title text-[1.75rem] md:text-[2rem]">{job.company}</h3>
+                        {job.current ? (
+                          <span className="rounded-full bg-accent px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--accent-contrast)]">
+                            Current
+                          </span>
+                        ) : null}
+                      </div>
+                      <p className="mt-3 text-[0.9375rem] font-medium text-ink">{job.position}</p>
+                      <p className="mt-2 font-mono text-[11px] uppercase tracking-[0.16em] text-ink-subtle">
+                        {job.duration} &middot; {job.location}
+                      </p>
                     </div>
-                    <p className="mt-3 text-base font-medium text-stone-700">{job.position}</p>
-                    <p className="mt-2 text-sm uppercase tracking-[0.18em] text-stone-500">
-                      {job.duration} • {job.location}
+
+                    <p className="max-w-sm border-l border-line pl-5 text-sm leading-7 text-ink-muted">
+                      {job.description}
                     </p>
                   </div>
 
-                  <div className="max-w-sm border-l border-[rgba(80,61,43,0.14)] pl-5 text-sm leading-7 text-stone-600">
-                    {job.description}
-                  </div>
-                </div>
-
-                <ul className="mt-8 grid gap-3 text-sm leading-6 text-stone-700 md:grid-cols-2">
-                  {job.achievements.map((achievement) => (
-                    <li key={achievement} className="rounded-[1.4rem] bg-[rgba(255,250,242,0.7)] p-4">
-                      {achievement}
-                    </li>
-                  ))}
-                </ul>
-              </article>
+                  <ul className="mt-8 grid gap-2.5 md:grid-cols-2">
+                    {job.achievements.map((achievement) => (
+                      <li
+                        className="rounded-[var(--radius-card)] bg-surface-sunken p-4 text-sm leading-6 text-ink-muted"
+                        key={achievement}
+                      >
+                        {achievement}
+                      </li>
+                    ))}
+                  </ul>
+                </article>
+              </li>
             ))}
+          </ol>
+        </section>
+
+        {/* ----------------------------------------------------- Education */}
+        <section className="reveal mx-auto w-full max-w-6xl px-5 py-20 sm:px-6">
+          <div>
+            <p className="section-label">Education &amp; credentials</p>
+            <h2 className="section-title">Foundations, and the habit of going back to school.</h2>
           </div>
+
+          <ul className="mt-12 grid gap-4 md:grid-cols-3">
+            {education.map((item) => (
+              <li className="editorial-card flex flex-col rounded-[var(--radius-panel)] p-6" key={item.title}>
+                <h3 className="card-title text-[1.35rem]">{item.title}</h3>
+                {item.subtitle ? <p className="mt-3 text-sm leading-6 text-ink-muted">{item.subtitle}</p> : null}
+                <p className="mt-auto pt-5 font-mono text-[11px] uppercase tracking-[0.16em] text-ink-subtle">
+                  {item.year}
+                </p>
+              </li>
+            ))}
+          </ul>
         </section>
 
-        <section className="mx-auto grid w-full max-w-6xl gap-5 px-5 py-18 sm:px-6 md:grid-cols-[1.15fr_0.85fr_0.85fr]">
-          {education.map((item, index) => (
-            <article
-              key={item.title}
-              className={`rounded-[2rem] border border-[rgba(80,61,43,0.14)] p-6 shadow-[0_14px_34px_rgba(28,25,23,0.05)] ${
-                index === 0 ? "bg-[rgba(255,251,245,0.9)]" : "bg-[rgba(250,244,236,0.74)]"
-              }`}
-            >
-              <p className="text-xs uppercase tracking-[0.28em] text-stone-500">Education & credentials</p>
-              <h3
-                className="mt-4 text-[1.85rem] tracking-[-0.03em] text-stone-950"
-                style={{ fontFamily: "var(--font-display)", lineHeight: "0.98" }}
-              >
-                {item.title}
-              </h3>
-              {item.subtitle ? <p className="mt-3 text-sm leading-6 text-stone-600">{item.subtitle}</p> : null}
-              <p className="mt-5 text-sm font-medium uppercase tracking-[0.18em] text-stone-500">{item.year}</p>
-            </article>
-          ))}
-        </section>
-
-        <section className="mx-auto w-full max-w-6xl px-5 py-18 sm:px-6">
-          <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-end">
-            <div className="max-w-3xl">
+        {/* ------------------------------------------------------- Writing */}
+        <section className="reveal mx-auto w-full max-w-6xl px-5 py-20 sm:px-6">
+          <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
+            <div>
               <p className="section-label">Writing</p>
               <h2 className="section-title">Articles are part of the portfolio, not an afterthought.</h2>
               <p className="section-copy">
@@ -290,18 +282,15 @@ export default function HomePage() {
                 building iOS products.
               </p>
             </div>
-            <Link
-              className="inline-flex items-center justify-between rounded-[1.7rem] border border-[rgba(80,61,43,0.14)] bg-[rgba(255,250,242,0.7)] px-5 py-4 text-sm font-medium text-stone-900 transition hover:border-[#31443a] hover:text-[#31443a]"
-              href="/articles"
-            >
+            <Link className="btn-secondary shrink-0" href="/articles">
               All articles
-              <ArrowRight className="h-4 w-4" />
+              <ArrowRight aria-hidden className="h-4 w-4" />
             </Link>
           </div>
 
-          <div className="mt-10 grid gap-5">
+          <div className="mt-10 grid gap-4">
             {recentArticles.map((article, index) => (
-              <ArticleCard key={article.slug} article={article} featured={index === 0} />
+              <ArticleCard article={article} featured={index === 0} key={article.slug} />
             ))}
           </div>
         </section>

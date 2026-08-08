@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 import { notFound } from "next/navigation"
+import { ArrowLeft } from "lucide-react"
 
 import { ArticleCard } from "@/components/article-card"
 import { SiteFooter } from "@/components/site-footer"
@@ -12,6 +13,7 @@ import {
   getPublishedArticles,
   getRelatedArticles,
 } from "@/lib/articles"
+import { profile } from "@/lib/site-data"
 
 type ArticlePageProps = {
   params: Promise<{ slug: string }>
@@ -32,7 +34,7 @@ export async function generateMetadata({ params }: ArticlePageProps): Promise<Me
   }
 
   return {
-    title: `${article.title} | Ahmad Zaky Wisnumurti`,
+    title: article.title,
     description: article.excerpt,
   }
 }
@@ -54,79 +56,91 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
   const relatedArticles = getRelatedArticles(slug, 2)
 
   return (
-    <div className="flex min-h-screen flex-col text-stone-900">
+    <div className="flex min-h-dvh flex-col">
       <SiteHeader />
 
-      <main className="mx-auto w-full max-w-6xl flex-1 px-5 py-18 sm:px-6">
-        <div className="max-w-4xl">
-          <Link className="text-sm uppercase tracking-[0.18em] text-stone-600 transition hover:text-[#31443a]" href="/articles">
-            Back to articles
-          </Link>
-          <h1
-            className="mt-6 max-w-4xl text-5xl tracking-[-0.045em] text-stone-950 md:text-7xl"
-            style={{ fontFamily: "var(--font-display)", lineHeight: "0.92" }}
-          >
-            {compiled.frontmatter.title}
-          </h1>
-          <div className="mt-6 flex flex-wrap items-center gap-3 text-sm uppercase tracking-[0.18em] text-stone-500">
-            <span>{formatArticleDate(compiled.frontmatter.publishedAt)}</span>
-            <span>&bull;</span>
+      <main className="mx-auto w-full max-w-6xl flex-1 px-5 py-12 sm:px-6 md:py-16" id="main">
+        <Link className="link-quiet inline-flex min-h-11 items-center gap-2 text-sm" href="/articles">
+          <ArrowLeft aria-hidden className="h-4 w-4" />
+          Back to articles
+        </Link>
+
+        <header className="mt-6 max-w-4xl">
+          <h1 className="display-title text-[clamp(2.25rem,5.5vw,4.25rem)]">{compiled.frontmatter.title}</h1>
+
+          <div className="mt-6 flex flex-wrap items-center gap-2.5 font-mono text-[11px] uppercase tracking-[0.18em] text-ink-subtle">
+            <time dateTime={compiled.frontmatter.publishedAt}>
+              {formatArticleDate(compiled.frontmatter.publishedAt)}
+            </time>
+            <span aria-hidden>&mdash;</span>
             <span>{compiled.readingTime}</span>
           </div>
-          <div className="mt-6 flex flex-wrap gap-2">
+
+          <ul className="mt-5 flex flex-wrap gap-2">
             {compiled.frontmatter.tags.map((tag) => (
-              <span
+              <li
+                className="rounded-full border border-line bg-surface-sunken px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.16em] text-ink-muted"
                 key={tag}
-                className="rounded-full border border-[rgba(117,95,71,0.18)] bg-[rgba(255,250,242,0.72)] px-3 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-stone-700"
               >
                 {tag}
-              </span>
+              </li>
             ))}
-          </div>
-          <p className="mt-8 max-w-2xl text-lg leading-8 text-stone-700">{compiled.frontmatter.excerpt}</p>
-        </div>
+          </ul>
 
-        <div className="mt-14 grid gap-12 lg:grid-cols-[minmax(0,1fr)_18rem]">
-          <article className="paper-panel rounded-[2.2rem] px-6 py-10 md:px-10">
+          <p className="lede mt-8 text-[1.1875rem]">{compiled.frontmatter.excerpt}</p>
+        </header>
+
+        <div className="mt-12 grid gap-10 lg:grid-cols-[minmax(0,1fr)_16rem] lg:items-start">
+          <article className="paper-panel rounded-[var(--radius-panel)] px-6 py-10 md:px-10 md:py-12">
             {compiled.frontmatter.coverImage ? (
-              <div className="mb-8 overflow-hidden rounded-2xl border border-[rgba(117,95,71,0.2)]">
+              <div className="mb-10 aspect-[16/9] overflow-hidden rounded-[var(--radius-card)] border border-line bg-surface-sunken">
                 <img
-                  alt={compiled.frontmatter.title}
-                  className="h-auto w-full object-cover"
-                  loading="lazy"
+                  alt=""
+                  className="h-full w-full object-cover"
                   src={compiled.frontmatter.coverImage}
                 />
               </div>
             ) : null}
+
             <div className="prose-shell">{compiled.content}</div>
           </article>
 
-          <aside className="space-y-4">
-            <div className="editorial-card rounded-[2rem] p-6">
-              <p className="text-xs uppercase tracking-[0.28em] text-stone-500">Workflow</p>
-              <p className="mt-4 text-sm leading-7 text-stone-700">
-                Articles live in <code>content/articles</code> as local MDX files with frontmatter for title, excerpt, date, tags, and draft state.
+          {/* Sticky so it stays useful while reading a long article */}
+          <aside className="space-y-4 lg:sticky lg:top-24">
+            <div className="editorial-card rounded-[var(--radius-panel)] p-6">
+              <p className="eyebrow">Workflow</p>
+              <p className="mt-4 text-sm leading-7 text-ink-muted">
+                Articles live in <code className="font-mono text-[0.85em] text-ink">content/articles</code> as local MDX
+                files with frontmatter for title, excerpt, date, tags, and draft state.
               </p>
+            </div>
+
+            <div className="editorial-card rounded-[var(--radius-panel)] p-6">
+              <p className="eyebrow">Get in touch</p>
+              <p className="mt-4 text-sm leading-7 text-ink-muted">
+                Questions or corrections on this piece are welcome.
+              </p>
+              <a
+                className="link-quiet mt-3 inline-flex min-h-11 items-center text-sm text-ink"
+                href={`mailto:${profile.email}`}
+              >
+                {profile.email}
+              </a>
             </div>
           </aside>
         </div>
 
         {relatedArticles.length > 0 ? (
-          <section className="mt-16">
-            <div className="flex items-center justify-between">
-              <h2
-                className="text-[2rem] tracking-[-0.03em] text-stone-950"
-                style={{ fontFamily: "var(--font-display)", lineHeight: "0.98" }}
-              >
-                More writing
-              </h2>
-              <Link className="text-sm font-medium text-stone-600 transition hover:text-[#31443a]" href="/articles">
+          <section className="mt-20">
+            <div className="flex flex-wrap items-end justify-between gap-4">
+              <h2 className="card-title text-[1.75rem] md:text-[2rem]">More writing</h2>
+              <Link className="link-quiet inline-flex min-h-11 items-center text-sm font-medium" href="/articles">
                 View all
               </Link>
             </div>
-            <div className="mt-6 grid gap-5 md:grid-cols-2">
+            <div className="mt-6 grid gap-4 md:grid-cols-2">
               {relatedArticles.map((relatedArticle) => (
-                <ArticleCard key={relatedArticle.slug} article={relatedArticle} />
+                <ArticleCard article={relatedArticle} key={relatedArticle.slug} />
               ))}
             </div>
           </section>

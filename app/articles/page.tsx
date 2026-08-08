@@ -4,7 +4,7 @@ import { SiteHeader } from "@/components/site-header"
 import { getPublishedArticles } from "@/lib/articles"
 
 export const metadata = {
-  title: "Articles | Ahmad Zaky Wisnumurti",
+  title: "Articles",
   description: "Notes on iOS engineering, architecture, product quality, and lessons from shipping mobile apps.",
 }
 
@@ -12,32 +12,48 @@ export default function ArticlesPage() {
   const articles = getPublishedArticles()
 
   return (
-    <div className="flex min-h-screen flex-col text-stone-900">
+    <div className="flex min-h-dvh flex-col">
       <SiteHeader />
 
-      <main className="mx-auto w-full max-w-6xl flex-1 px-5 py-18 sm:px-6">
-        <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-end">
-          <div className="max-w-3xl">
+      <main className="mx-auto w-full max-w-6xl flex-1 px-5 py-16 sm:px-6 md:py-20" id="main">
+        <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_17rem] lg:items-end">
+          <div>
             <p className="section-label">Writing archive</p>
-            <h1 className="section-title">A place for engineering notes, architecture decisions, and lessons from shipping.</h1>
+            <h1 className="section-title">
+              A place for engineering notes, architecture decisions, and lessons from shipping.
+            </h1>
             <p className="section-copy">
-              The article system is intentionally lightweight: local MDX files, clear frontmatter, and a publishing flow that stays close to the codebase.
+              The article system is intentionally lightweight: local MDX files, clear frontmatter, and a publishing flow
+              that stays close to the codebase.
             </p>
           </div>
 
-          <div className="rounded-[1.8rem] border border-[rgba(80,61,43,0.14)] bg-[rgba(255,250,242,0.62)] p-5">
-            <p className="text-[11px] uppercase tracking-[0.28em] text-stone-500">Publishing setup</p>
-            <p className="mt-3 text-sm leading-7 text-stone-700">
-              Built for shipping thoughtful writing quickly, without separating it from the product and code it documents.
+          <div className="rounded-[var(--radius-card)] border border-line bg-surface-sunken p-5">
+            <p className="eyebrow">Publishing setup</p>
+            <p className="mt-3 text-sm leading-7 text-ink-muted">
+              Built for shipping thoughtful writing quickly, without separating it from the product and code it
+              documents.
             </p>
           </div>
         </div>
 
-        <div className="mt-12 grid gap-5">
-          {articles.map((article, index) => (
-            <ArticleCard key={article.slug} article={article} featured={index === 0} />
-          ))}
-        </div>
+        {articles.length > 0 ? (
+          <div className="mt-12 grid gap-4">
+            {articles.map((article, index) => (
+              <ArticleCard article={article} featured={index === 0} headingLevel="h2" key={article.slug} />
+            ))}
+          </div>
+        ) : (
+          /* Empty state: the archive can legitimately be empty when every
+             article is still in draft, so say so instead of rendering nothing. */
+          <div className="mt-12 rounded-[var(--radius-panel)] border border-dashed border-line-strong bg-surface-sunken p-12 text-center">
+            <p className="card-title text-xl">Nothing published yet</p>
+            <p className="mt-3 text-sm leading-7 text-ink-muted">
+              Drafts are in progress. Check back soon, or reach out if there is something you would like me to write
+              about.
+            </p>
+          </div>
+        )}
       </main>
 
       <SiteFooter />
