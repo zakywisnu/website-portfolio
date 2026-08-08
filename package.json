@@ -6,7 +6,8 @@
     "build": "next build",
     "dev": "next dev",
     "lint": "next lint",
-    "start": "next start"
+    "start": "next start",
+    "check:contrast": "node scripts/check-contrast.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
