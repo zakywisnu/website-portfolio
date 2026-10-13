@@ -72,7 +72,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
             <time dateTime={compiled.frontmatter.publishedAt}>
               {formatArticleDate(compiled.frontmatter.publishedAt)}
             </time>
-            <span aria-hidden>&mdash;</span>
+            <span aria-hidden>/</span>
             <span>{compiled.readingTime}</span>
           </div>
 
