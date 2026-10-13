@@ -7,37 +7,15 @@
  * Exits non-zero if any pair fails, so it can gate a build if wanted.
  */
 
-const LIGHT = {
-  paper: "#f6f0e5",
-  "paper-deep": "#ece2d1",
-  surface: "#fffcf6",
-  "surface-sunken": "#efe7d9",
-  "surface-raised": "#fffdfa",
-  ink: "#23190f",
-  "ink-muted": "#5c5044",
-  "ink-subtle": "#6f6153",
-  accent: "#31443a",
-  "accent-hover": "#24332b",
-  "accent-contrast": "#fdfaf4",
-  "amber-ink": "#8a5a1f",
-  amber: "#b77b37",
-}
+import fs from "node:fs"
 
-const DARK = {
-  paper: "#17130e",
-  "paper-deep": "#100d09",
-  surface: "#201a14",
-  "surface-sunken": "#1a1610",
-  "surface-raised": "#2a231b",
-  ink: "#f4ece0",
-  "ink-muted": "#b8ab99",
-  "ink-subtle": "#9a8e7c",
-  accent: "#8fb3a0",
-  "accent-hover": "#a9c7b7",
-  "accent-contrast": "#12201a",
-  "amber-ink": "#d99f5c",
-  amber: "#c98d45",
+const css = fs.readFileSync(new URL("../app/globals.css", import.meta.url), "utf8")
+function readTokens(selector) {
+  const block = css.match(new RegExp(selector + "\\s*\\{([^}]+)\\}"))[1]
+  return Object.fromEntries([...block.matchAll(/--([\w-]+):\s*(#[\da-f]{6})/gi)].map((match) => [match[1], match[2]]))
 }
+const LIGHT = readTokens(":root")
+const DARK = readTokens("\\.dark")
 
 /** Text tokens rendered on each surface, plus the minimum ratio required. */
 const TEXT_ON_SURFACES = ["ink", "ink-muted", "ink-subtle", "accent", "amber-ink"]

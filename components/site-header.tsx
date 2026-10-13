@@ -16,18 +16,17 @@ export function SiteHeader() {
   const pathname = usePathname()
 
   return (
-    <header className="sticky top-0 z-50 border-b border-line bg-paper/80 backdrop-blur-xl">
-      <div className="mx-auto flex w-full max-w-6xl items-center justify-between gap-3 px-5 py-3 sm:px-6">
+    <header className="resume-header sticky top-0 z-50 border-b border-line bg-paper">
+      <div className="mx-auto flex w-full max-w-[1100px] items-center justify-between gap-3 px-5 py-3 sm:px-6">
         <Link
           className="group flex shrink-0 items-center gap-3 rounded-full py-1 pr-2 text-sm font-medium text-ink"
           href="/"
         >
-          <span className="flex h-10 w-10 items-center justify-center rounded-full border border-line-strong bg-surface font-mono text-[11px] tracking-[0.14em] text-ink transition-colors duration-200 group-hover:border-accent group-hover:text-accent">
-            {profile.shortName}
-          </span>
-          <span className="hidden text-sm tracking-[0.04em] text-ink-muted transition-colors duration-200 group-hover:text-ink sm:inline">
-            {profile.name}
-          </span>
+          <svg className="resume-logo" viewBox="0 0 78 32" role="img" aria-label={profile.name}>
+            <title>{profile.name}</title>
+            <defs><clipPath id="azw-clearspace"><rect width="78" height="32" /></clipPath></defs>
+            <g clipPath="url(#azw-clearspace)"><text x="1" y="25" className="resume-logo-letters">{profile.shortName}</text></g>
+          </svg>
         </Link>
 
         <div className="flex items-center gap-1 sm:gap-2">

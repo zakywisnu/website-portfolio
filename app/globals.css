@@ -3,60 +3,45 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* ==========================================================================
-   Design tokens
-   Warm editorial paper. Light and dark are designed as a pair: dark is a
-   warm, desaturated ink theme, not an inversion of the light theme.
-   Every foreground/background pair below is verified >= 4.5:1 (AA) for text
-   and >= 3:1 for UI graphics. See scripts/check-contrast.mjs.
-   ========================================================================== */
-
 :root {
   color-scheme: light;
 
   /* Surfaces, back to front */
-  --paper: #f6f0e5;
-  --paper-deep: #ece2d1;
-  --surface: #fffcf6;
-  --surface-sunken: #efe7d9;
-  --surface-raised: #fffdfa;
+  --paper: #f4f6f5;
+  --paper-deep: #e9eeeb;
+  --surface: #fafcfb;
+  --surface-sunken: #edf1ef;
+  --surface-raised: #fafcfb;
 
   /* Ink */
-  --ink: #23190f;
-  --ink-muted: #5c5044;
-  --ink-subtle: #6f6153;
-  --ink-inverted: #fdfaf4;
+  --ink: #18221d;
+  --ink-muted: #48574e;
+  --ink-subtle: #56665c;
+  --ink-inverted: #f4f6f5;
 
   /* Brand */
   --accent: #31443a;
   --accent-hover: #24332b;
-  --accent-contrast: #fdfaf4;
+  --accent-contrast: #f4f6f5;
   --accent-wash: rgba(49, 68, 58, 0.08);
   /* Amber splits in two: -ink is text-safe, plain amber is decorative only */
-  --amber-ink: #8a5a1f;
-  --amber: #b77b37;
+  --amber-ink: #31443a;
+  --amber: #526e5d;
   --amber-wash: rgba(183, 123, 55, 0.14);
 
   /* Lines */
-  --line: rgba(89, 68, 45, 0.16);
-  --line-strong: rgba(68, 46, 29, 0.32);
+  --line: rgba(49, 68, 58, 0.18);
+  --line-strong: rgba(49, 68, 58, 0.32);
 
   /* Elevation — warm-tinted, never neutral grey */
   --shadow-sm: 0 1px 2px rgba(57, 40, 24, 0.06);
   --shadow-md: 0 10px 24px -8px rgba(57, 40, 24, 0.14);
   --shadow-lg: 0 22px 60px -18px rgba(57, 40, 24, 0.22);
 
-  /* Page background wash */
-  --page-wash:
-    radial-gradient(circle at top left, rgba(255, 250, 242, 0.96), transparent 32%),
-    radial-gradient(circle at top right, rgba(183, 123, 55, 0.08), transparent 28%),
-    linear-gradient(180deg, #f9f3e8 0%, #f2eadf 42%, #e9dfd0 100%);
-  --grain-opacity: 0.08;
-  --grain-blend: multiply;
 
   /* Radii */
-  --radius-card: 1.5rem;
-  --radius-panel: 2rem;
+  --radius-card: 0.375rem;
+  --radius-panel: 0.5rem;
   --radius-pill: 999px;
 
   /* Motion */
@@ -70,39 +55,33 @@
 .dark {
   color-scheme: dark;
 
-  --paper: #17130e;
-  --paper-deep: #100d09;
-  --surface: #201a14;
-  --surface-sunken: #1a1610;
-  --surface-raised: #2a231b;
+  --paper: #18221d;
+  --paper-deep: #121a15;
+  --surface: #202c24;
+  --surface-sunken: #1b271f;
+  --surface-raised: #26342b;
 
-  --ink: #f4ece0;
-  --ink-muted: #b8ab99;
-  --ink-subtle: #9a8e7c;
-  --ink-inverted: #17130e;
+  --ink: #f1f5f2;
+  --ink-muted: #c1cec5;
+  --ink-subtle: #acbdb1;
+  --ink-inverted: #18221d;
 
   --accent: #8fb3a0;
   --accent-hover: #a9c7b7;
   --accent-contrast: #12201a;
   --accent-wash: rgba(143, 179, 160, 0.14);
 
-  --amber-ink: #d99f5c;
-  --amber: #c98d45;
+  --amber-ink: #a9c7b7;
+  --amber: #a9c7b7;
   --amber-wash: rgba(201, 141, 69, 0.16);
 
-  --line: rgba(233, 214, 186, 0.16);
-  --line-strong: rgba(233, 214, 186, 0.3);
+  --line: rgba(193, 206, 197, 0.18);
+  --line-strong: rgba(193, 206, 197, 0.3);
 
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.5);
   --shadow-md: 0 10px 24px -8px rgba(0, 0, 0, 0.6);
   --shadow-lg: 0 22px 60px -18px rgba(0, 0, 0, 0.7);
 
-  --page-wash:
-    radial-gradient(circle at top left, rgba(60, 48, 36, 0.55), transparent 34%),
-    radial-gradient(circle at top right, rgba(183, 123, 55, 0.1), transparent 30%),
-    linear-gradient(180deg, #1a1510 0%, #17130e 45%, #120f0b 100%);
-  --grain-opacity: 0.05;
-  --grain-blend: overlay;
 }
 
 /* Expose tokens to Tailwind utilities. `inline` keeps them as var()
@@ -130,7 +109,7 @@
   --color-line: var(--line);
   --color-line-strong: var(--line-strong);
 
-  --font-display: var(--font-newsreader), "Iowan Old Style", Georgia, serif;
+  --font-display: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 
@@ -152,7 +131,7 @@
 
   body {
     background-color: var(--paper);
-    background-image: var(--page-wash);
+    background-image: none;
     background-attachment: fixed;
     color: var(--ink);
     font-family: var(--font-sans);
@@ -257,13 +236,13 @@
   .editorial-card {
     border: 1px solid var(--line);
     background: var(--surface);
-    box-shadow: var(--shadow-md);
+    box-shadow: none;
   }
 
   .paper-panel {
     border: 1px solid var(--line);
     background: var(--surface);
-    box-shadow: var(--shadow-lg);
+    box-shadow: none;
   }
 
   .paper-cut {
@@ -315,7 +294,7 @@
     padding: 0.75rem 1.5rem;
     font-size: 0.9375rem;
     font-weight: 500;
-    box-shadow: var(--shadow-md);
+    box-shadow: none;
     transition:
       transform var(--duration-base) var(--ease-out),
       background-color var(--duration-base) var(--ease-out);
@@ -396,7 +375,7 @@
 
   .hover-lift:hover {
     transform: translateY(-4px);
-    box-shadow: var(--shadow-lg);
+    box-shadow: none;
     border-color: var(--line-strong);
   }
 
@@ -488,25 +467,6 @@
   }
 }
 
-/* ==========================================================================
-   Paper grain
-   ========================================================================== */
-
-.grain::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  opacity: var(--grain-opacity);
-  background-image:
-    radial-gradient(rgba(45, 31, 20, 0.08) 0.6px, transparent 0.6px),
-    radial-gradient(rgba(255, 255, 255, 0.26) 0.6px, transparent 0.6px);
-  background-position: 0 0, 14px 14px;
-  background-size: 18px 18px;
-  mix-blend-mode: var(--grain-blend);
-  z-index: 1;
-}
-
 /* Skip link: off-screen until focused */
 .skip-link {
   position: fixed;
@@ -564,4 +524,112 @@
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--ink-subtle);
+}
+
+/* Resume motion: the SVG traces career progression; reveals group each role.
+   Content remains visible in browsers without scroll-driven animations. */
+.resume-main { width: 100%; max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+.resume-intro { position: relative; isolation: isolate; display: grid; grid-template-columns: minmax(0, 1.65fr) minmax(220px, 1fr); gap: 64px; align-items: center; padding: 112px 0 104px; }
+.typographic-hero { position: absolute; inset: 0 -24px; z-index: -1; pointer-events: none; }
+.typographic-hero canvas { width: 100%; height: 100%; color: var(--ink-muted); mask-image: radial-gradient(ellipse at 40% 48%, transparent 24%, #000 78%); }
+.hero-motion-toggle { position: absolute; right: 24px; bottom: 16px; pointer-events: auto; padding: 8px 0; color: var(--ink-muted); font-size: .75rem; text-decoration: underline; text-underline-offset: 4px; cursor: pointer; }
+.hero-motion-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 5px; }
+@media (prefers-reduced-motion: reduce) { .hero-motion-toggle { display: none; } }
+.resume-name { font-size: clamp(2.5rem, 5.4vw, 4.75rem); font-weight: 650; letter-spacing: -.055em; line-height: 1.08; }
+.resume-name span { display: block; }
+.resume-role { margin-top: 16px; font-size: clamp(1.3rem, 2.4vw, 1.8rem); color: var(--accent); font-weight: 550; letter-spacing: -.025em; }
+.resume-bio { margin-top: 20px; max-width: 48ch; font-size: 1.08rem; line-height: 1.7; color: var(--ink-muted); }
+.resume-contact { display: flex; gap: 28px; margin-top: 22px; }
+.resume-link { display: inline-flex; align-items: center; min-height: 44px; position: relative; color: var(--ink); font-size: .9375rem; white-space: nowrap; }
+.resume-link::after { content: ""; position: absolute; left: 0; right: 0; bottom: 9px; height: 1px; background: currentColor; transform-origin: left; transform: scaleX(.35); transition: transform 180ms var(--ease-out); }
+.resume-link:hover::after, .resume-link:focus-visible::after { transform: scaleX(1); }
+.resume-link:hover { color: var(--accent); }
+.resume-link:active { transform: translateY(1px); }
+.resume-current { border-left: 1px solid var(--line); padding-left: 28px; font-size: .9375rem; line-height: 1.65; }
+.resume-current p { color: var(--ink-subtle); margin-bottom: 10px; }
+.resume-current strong, .resume-current span { display: block; }
+.resume-current strong { font-weight: 550; }
+.resume-current span { color: var(--ink-muted); margin-top: 2px; }
+.resume-section { border-top: 1px solid var(--line); padding: 32px 0 42px; scroll-margin-top: 24px; }
+.resume-section h2 { font-size: 1.55rem; font-weight: 600; letter-spacing: -.035em; margin-bottom: 32px; }
+.resume-section h3 { font-size: 1.125rem; font-weight: 600; letter-spacing: -.02em; }
+.career-history { position: relative; }
+.career-history > ol { list-style: none; padding: 0; }
+.career-line { position: absolute; top: 4px; bottom: 6px; left: 195px; width: 2px; height: calc(100% - 10px); overflow: visible; }
+.career-line path { stroke: var(--accent); stroke-width: 1.5; fill: none; opacity: .6; }
+.career-row { position: relative; display: grid; grid-template-columns: 168px minmax(0,1fr); gap: 56px; padding: 0 0 32px; }
+.career-row + .career-row { padding-top: 32px; border-top: 1px solid var(--line); }
+.career-row:last-child { padding-bottom: 0; }
+.career-date { color: var(--ink-subtle); font-size: .875rem; line-height: 1.6; font-variant-numeric: tabular-nums; }
+.career-role { color: var(--accent); margin-top: 4px; font-size: .9375rem; font-weight: 550; }
+.career-description { color: var(--ink-muted); margin-top: 12px; max-width: 66ch; font-size: .875rem; line-height: 1.7; }
+.career-achievements { padding-left: 18px; margin-top: 16px; list-style: disc; display: grid; gap: 8px; font-size: .9375rem; color: var(--ink-muted); line-height: 1.7; }
+.career-achievements li::marker { color: var(--ink-subtle); font-size: .7em; }
+.resume-foundations { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; }
+.resume-skills { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px 24px; color: var(--ink-muted); font-size: .9375rem; }
+.resume-languages { color: var(--ink-subtle); font-size: .875rem; margin-top: 24px; }
+.resume-education { display: grid; gap: 24px; }
+.resume-education h3 { font-size: .9375rem; }
+.resume-education p, .resume-education span { display: block; color: var(--ink-muted); font-size: .875rem; line-height: 1.7; margin-top: 3px; }
+.resume-education span { color: var(--ink-subtle); }
+.resume-projects { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; }
+.resume-projects p { margin-top: 12px; color: var(--ink-muted); font-size: .9375rem; line-height: 1.7; }
+.resume-projects ul { margin: 16px 0 12px; padding-left: 18px; list-style: disc; display: grid; gap: 8px; color: var(--ink-muted); font-size: .875rem; line-height: 1.7; }
+.resume-section-heading { display: flex; justify-content: space-between; gap: 24px; align-items: baseline; }
+.resume-writing > ul { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; }
+.resume-article-link { display: block; border-radius: 6px; }
+.resume-article-link h3 { line-height: 1.5; }
+.resume-article-link:hover h3 { color: var(--accent); text-decoration: underline; text-underline-offset: 5px; }
+.resume-article-link p { margin-top: 12px; font-size: .9375rem; line-height: 1.7; color: var(--ink-muted); }
+.resume-article-link span { display: block; margin-top: 16px; color: var(--ink-subtle); font-size: .8125rem; }
+.resume-logo { width: 68px; height: 32px; overflow: visible; }
+.resume-logo-letters { fill: currentColor; font-family: var(--font-sans); font-weight: 600; font-size: 25px; letter-spacing: 2px; }
+.resume-footer { max-width: 1100px; margin: 12px auto 0; padding: 28px 24px 40px; width: 100%; display: flex; justify-content: space-between; align-items: baseline; gap: 24px; border-top: 1px solid var(--line); font-size: .8125rem; color: var(--ink-subtle); }
+@keyframes resume-arrive { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+@keyframes azw-build { from { transform: translateY(34px); } to { transform: translateY(0); } }
+@keyframes career-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+@media (prefers-reduced-motion: no-preference) {
+  .resume-logo-letters { animation: azw-build .9s var(--ease-out) both; }
+  .intro-enter { animation: resume-arrive .65s var(--ease-out) both; }
+  .resume-role { animation-delay: 80ms; }
+  .resume-bio { animation-delay: 160ms; }
+  .resume-contact { animation-delay: 240ms; }
+  .resume-current { animation-delay: 280ms; }
+  @supports (animation-timeline: view()) {
+    .resume-reveal { animation: resume-arrive linear both; animation-timeline: view(); animation-range: entry 0% entry 65%; }
+  }
+}
+@media (max-width: 767px) {
+  .resume-main { padding: 0 20px; }
+  .typographic-hero { inset-inline: -20px; }
+  .hero-motion-toggle { right: 20px; }
+  .resume-intro { grid-template-columns: 1fr; gap: 28px; padding: 40px 0 36px; }
+  .resume-name { font-size: clamp(2.2rem, 8.9vw, 3.5rem); }
+  .resume-current { padding-left: 0; border-left: 0; }
+  .resume-current p { margin-bottom: 5px; }
+  .resume-bio { font-size: 1rem; }
+  .resume-foundations, .resume-projects, .resume-writing > ul { grid-template-columns: 1fr; gap: 0; }
+  .resume-projects, .resume-writing > ul { gap: 32px; }
+  .career-row { grid-template-columns: 1fr; gap: 12px; padding-left: 20px; }
+  .career-line { left: 0; }
+  .resume-section { padding: 28px 0 32px; }
+  .resume-section h2 { margin-bottom: 24px; }
+  .resume-footer { align-items: start; flex-direction: column; gap: 8px; padding: 24px 20px 32px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .resume-logo-letters, .intro-enter, .resume-reveal { animation: none; transform: none; opacity: 1; }
+  .career-line path { animation: none; stroke-dashoffset: 0; }
+}
+@media (max-width: 374px) {
+  .resume-header .resume-logo { width: 48px; }
+  .resume-header nav a { padding-inline: 6px; font-size: .75rem; }
+  .resume-header > div { gap: 4px; padding-inline: 16px; }
+}
+
+/* Each role settles once, so returning to the resume never hides read content. */
+@media (prefers-reduced-motion: no-preference) {
+  .career-history[data-motion-ready] .career-line path { stroke-dasharray: 1; stroke-dashoffset: 1; }
+  .career-history[data-motion-ready] .career-content { opacity: 0; transform: translateY(12px); }
+  .career-history[data-motion-ready] [data-revealed] .career-line path { animation: career-draw .9s cubic-bezier(.65,0,.35,1) forwards; }
+  .career-history[data-motion-ready] [data-revealed] .career-content { animation: resume-arrive .55s var(--ease-out) .12s forwards; }
 }

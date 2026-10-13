@@ -16,25 +16,9 @@ export default function ArticlesPage() {
       <SiteHeader />
 
       <main className="mx-auto w-full max-w-6xl flex-1 px-5 py-16 sm:px-6 md:py-20" id="main">
-        <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_17rem] lg:items-end">
-          <div>
-            <p className="section-label">Writing archive</p>
-            <h1 className="section-title">
-              A place for engineering notes, architecture decisions, and lessons from shipping.
-            </h1>
-            <p className="section-copy">
-              The article system is intentionally lightweight: local MDX files, clear frontmatter, and a publishing flow
-              that stays close to the codebase.
-            </p>
-          </div>
-
-          <div className="rounded-[var(--radius-card)] border border-line bg-surface-sunken p-5">
-            <p className="eyebrow">Publishing setup</p>
-            <p className="mt-3 text-sm leading-7 text-ink-muted">
-              Built for shipping thoughtful writing quickly, without separating it from the product and code it
-              documents.
-            </p>
-          </div>
+        <div>
+          <h1 className="section-title mt-0">Articles</h1>
+          <p className="section-copy">Notes on Swift, iOS architecture, and lessons from building mobile applications.</p>
         </div>
 
         {articles.length > 0 ? (
